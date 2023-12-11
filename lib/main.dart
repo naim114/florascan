@@ -55,10 +55,10 @@ class _MyAppState extends State<MyApp> {
         // DARK THEME
         darkTheme: ThemeData(
           brightness: Brightness.dark,
-          fontFamily: GoogleFonts.poppins().fontFamily,
+          fontFamily: GoogleFonts.ptSans().fontFamily,
           primarySwatch: primaryColorShades,
           primaryColor: CustomColor.primary,
-          textTheme: GoogleFonts.poppinsTextTheme(
+          textTheme: GoogleFonts.ptSansTextTheme(
             Theme.of(context).textTheme.apply(
                   bodyColor: Colors.white,
                   displayColor: Colors.white,
@@ -79,10 +79,10 @@ class _MyAppState extends State<MyApp> {
         // LIGHT THEME
         theme: ThemeData(
           brightness: Brightness.light,
-          fontFamily: GoogleFonts.poppins().fontFamily,
+          fontFamily: GoogleFonts.ptSans().fontFamily,
           primarySwatch: primaryColorShades,
           primaryColor: CustomColor.primary,
-          textTheme: GoogleFonts.poppinsTextTheme(
+          textTheme: GoogleFonts.ptSansTextTheme(
             Theme.of(context).textTheme.apply(
                   bodyColor: CustomColor.neutral1,
                   displayColor: CustomColor.neutral1,
