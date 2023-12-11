@@ -1,3 +1,4 @@
+import 'package:florascan/src/services/helpers.dart';
 import 'package:florascan/src/theme/theme_mode_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
