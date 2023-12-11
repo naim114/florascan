@@ -7,8 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
 class CustomColor {
-  static const primary = Color(0xFFF28500);
-  static const secondary = Color(0xFFFF9D26);
+  static const primary = Color(0xFF679668);
+  static const secondary = Color(0xFF85AB86);
   static const neutral1 = Color(0xFF1C1243);
   static const neutral2 = Color(0xFFA29EB6);
   static const neutral3 = Color(0xFFEFF1F3);
@@ -16,6 +16,24 @@ class CustomColor {
   static const success = Color(0xFF47C272);
   static const darkerBg = Color(0xFF242526);
   static const darkBg = Color(0xFF3A3B3C);
+}
+
+class CustomColorShades {
+  static MaterialColor primary() {
+    Color color = CustomColor.primary;
+    return MaterialColor(color.value, <int, Color>{
+      50: color.withOpacity(0.1),
+      100: color.withOpacity(0.2),
+      200: color.withOpacity(0.3),
+      300: color.withOpacity(0.4),
+      400: color.withOpacity(0.5),
+      500: color.withOpacity(0.6),
+      600: color.withOpacity(0.7),
+      700: color.withOpacity(0.8),
+      800: color.withOpacity(0.9),
+      900: color.withOpacity(1.0),
+    });
+  }
 }
 
 bool isDarkTheme(context) {

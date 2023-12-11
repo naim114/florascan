@@ -21,22 +21,6 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    MaterialColor primaryColorShades = const MaterialColor(
-      0xFFF28500,
-      <int, Color>{
-        50: Color(0xffda7800),
-        100: Color(0xffc26a00),
-        200: Color(0xffa95d00),
-        300: Color(0xff915000),
-        400: Color(0xff794300),
-        500: Color(0xff613500),
-        600: Color(0xff492800),
-        700: Color(0xff301b00),
-        800: Color(0xff180d00),
-        900: Color(0xff000000),
-      },
-    );
-
     return ThemeModeHandler(
       manager: MyThemeModeManager(),
       placeholderWidget: MaterialApp(
@@ -56,7 +40,7 @@ class _MyAppState extends State<MyApp> {
         darkTheme: ThemeData(
           brightness: Brightness.dark,
           fontFamily: GoogleFonts.ptSans().fontFamily,
-          primarySwatch: primaryColorShades,
+          primarySwatch: CustomColorShades.primary(),
           primaryColor: CustomColor.primary,
           textTheme: GoogleFonts.ptSansTextTheme(
             Theme.of(context).textTheme.apply(
@@ -80,7 +64,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           brightness: Brightness.light,
           fontFamily: GoogleFonts.ptSans().fontFamily,
-          primarySwatch: primaryColorShades,
+          primarySwatch: CustomColorShades.primary(),
           primaryColor: CustomColor.primary,
           textTheme: GoogleFonts.ptSansTextTheme(
             Theme.of(context).textTheme.apply(
