@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "129075236084",
+    "project_id": "florascan",
+    "storage_bucket": "florascan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129075236084:android:d15c90ff10be6e791522a1",
+        "android_client_info": {
+          "package_name": "com.example.florascan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnhl3Qgt-6LjAaoVzRA9Jm1uWGAQakhDQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
