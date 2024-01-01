@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:florascan/firebase_options.dart';
+import 'package:florascan/src/modules/main/index.dart';
 import 'package:florascan/src/services/helpers.dart';
 import 'package:florascan/src/theme/theme_mode_manager.dart';
-import 'package:florascan/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -94,7 +94,7 @@ class _MyAppState extends State<MyApp> {
                 iconColor: MaterialStatePropertyAll(CustomColor.neutral1)),
           ),
         ),
-        home: const Wrapper(),
+        home: const FrontFrame(),
       ),
     );
   }
