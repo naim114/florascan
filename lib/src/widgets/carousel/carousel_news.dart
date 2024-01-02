@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:florascan/src/modules/home/image_sliders.dart';
+import 'package:florascan/src/widgets/slider/image_slider.dart';
 import 'package:flutter/material.dart';
 
 class News {
@@ -55,7 +55,7 @@ class _CarouselNewsState extends State<CarouselNews> {
         Padding(
           padding: const EdgeInsets.only(top: 23.0, bottom: 5),
           child: CarouselSlider(
-            items: imageSliders(
+            items: imageSlider(
               mainContext: widget.mainContext,
             ),
             carouselController: controller,

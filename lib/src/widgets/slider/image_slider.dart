@@ -35,11 +35,12 @@ List<News?> newsList = [
   ),
 ];
 
-List<Widget> imageSliders({
+List<Widget> imageSlider({
   required BuildContext mainContext,
 }) =>
     newsList
-        .map((news) => ClipRRect(
+        .map(
+          (news) => ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(5.0)),
             child: GestureDetector(
               // onTap: () => Navigator.of(mainContext).push(
@@ -63,7 +64,7 @@ List<Widget> imageSliders({
                         )
                       : CachedNetworkImage(
                           imageUrl: news.imgURL!,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fitWidth,
                           height: 600,
                           placeholder: (context, url) => Shimmer.fromColors(
                             baseColor: CupertinoColors.systemGrey,
@@ -133,5 +134,7 @@ List<Widget> imageSliders({
                   ),
                 ],
               ),
-            )))
+            ),
+          ),
+        )
         .toList();
