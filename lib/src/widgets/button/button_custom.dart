@@ -1,3 +1,4 @@
+import 'package:florascan/src/services/helpers.dart';
 import 'package:flutter/material.dart';
 
 Widget buttonCustom({
@@ -16,6 +17,7 @@ Widget buttonCustom({
           double.infinity,
           55,
         )),
+        backgroundColor: MaterialStateProperty.all(CustomColor.primary),
       ),
       child: child,
     );
