@@ -35,7 +35,7 @@ List<News?> newsList = [
   ),
 ];
 
-List<Widget> imageSlider({
+List<Widget> sliderImage({
   required BuildContext mainContext,
 }) =>
     newsList

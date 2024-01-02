@@ -1,5 +1,6 @@
 import 'package:florascan/src/modules/account/profile/index.dart';
 import 'package:florascan/src/modules/account/security/index.dart';
+import 'package:florascan/src/modules/auth/index.dart';
 import 'package:florascan/src/modules/home/index.dart';
 import 'package:florascan/src/widgets/list_tile/list_tile_icon.dart';
 import 'package:flutter/cupertino.dart';
@@ -124,6 +125,37 @@ class _FrontFrameState extends State<FrontFrame> {
                   : CupertinoColors.systemGrey,
             ),
             // Login/Logout
+            ListTile(
+              title: const Text.rich(
+                TextSpan(
+                  children: [
+                    WidgetSpan(
+                      child: Icon(
+                        Icons.login,
+                        size: 16,
+                      ),
+                    ),
+                    TextSpan(
+                      text: '  ',
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    TextSpan(
+                      text: "Login",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AuthIndex(),
+                ),
+              ),
+            ),
             ListTile(
               title: const Text.rich(
                 TextSpan(

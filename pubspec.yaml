@@ -51,6 +51,7 @@ dependencies:
   country: ^4.1.1
   fluttertoast: ^8.2.4
   image_picker: ^1.0.5
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:

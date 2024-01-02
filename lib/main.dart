@@ -45,6 +45,10 @@ class _MyAppState extends State<MyApp> {
         themeMode: themeMode,
         // DARK THEME
         darkTheme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: CustomColor.primary,
+            brightness: Brightness.dark,
+          ),
           brightness: Brightness.dark,
           fontFamily: GoogleFonts.ptSans().fontFamily,
           primarySwatch: CustomColorShades.primary(),
@@ -69,6 +73,10 @@ class _MyAppState extends State<MyApp> {
         ),
         // LIGHT THEME
         theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: CustomColor.primary,
+            brightness: Brightness.light,
+          ),
           brightness: Brightness.light,
           fontFamily: GoogleFonts.ptSans().fontFamily,
           primarySwatch: CustomColorShades.primary(),

@@ -1,6 +1,5 @@
 import 'package:florascan/src/modules/home/news_row.dart';
 import 'package:florascan/src/services/helpers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -18,6 +17,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        title: Placeholder(),
         actions: [
           Builder(
             builder: (BuildContext builderContext) {
