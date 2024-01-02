@@ -1,4 +1,5 @@
 import 'package:florascan/src/modules/account/profile/index.dart';
+import 'package:florascan/src/modules/account/security/index.dart';
 import 'package:florascan/src/modules/home/index.dart';
 import 'package:florascan/src/widgets/list_tile/list_tile_icon.dart';
 import 'package:flutter/cupertino.dart';
@@ -94,7 +95,11 @@ class _FrontFrameState extends State<FrontFrame> {
               context: context,
               icon: CupertinoIcons.shield_lefthalf_fill,
               title: "Security",
-              onTap: () {},
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => Security(),
+                ),
+              ),
             ),
             // Theme
             listTileIcon(
