@@ -5,26 +5,30 @@ import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
   const Home({
-    super.key,
+    Key? key,
     required this.mainContext,
-  });
+    required this.scaffoldKey,
+  }) : super(key: key);
 
   final BuildContext mainContext;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Placeholder(),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.settings,
-              color: isDarkTheme(context)
-                  ? CustomColor.darkBg
-                  : CupertinoColors.systemGrey,
-            ),
+          Builder(
+            builder: (BuildContext builderContext) {
+              return IconButton(
+                onPressed: () => scaffoldKey.currentState?.openEndDrawer(),
+                icon: Icon(
+                  Icons.settings,
+                  color: getColorByBackground(context),
+                ),
+              );
+            },
           ),
         ],
       ),
