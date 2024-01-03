@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../services/helpers.dart';
+import '../info/index.dart';
 
 class FrontFrame extends StatefulWidget {
   const FrontFrame({super.key});
@@ -199,7 +200,7 @@ class _FrontFrameState extends State<FrontFrame> {
             scaffoldKey: _scaffoldKey,
           ),
           const Placeholder(),
-          const Placeholder(),
+          Info(mainContext: context),
           IndexNews(mainContext: context),
         ],
         items: _navBarsItems(),
