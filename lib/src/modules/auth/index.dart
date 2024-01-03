@@ -47,7 +47,7 @@ class AuthIndex extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 const Text(
-                  'Where Knowledge and Fun Collide',
+                  'Spotting Plant Woes, Growing Smiles!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 24,
