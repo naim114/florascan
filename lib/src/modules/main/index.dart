@@ -41,15 +41,6 @@ class _FrontFrameState extends State<FrontFrame> {
             : CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.camera),
-        title: ("Scan Disease"),
-        activeColorPrimary:
-            isDarkTheme(context) ? Colors.white : CustomColor.primary,
-        inactiveColorPrimary: isDarkTheme(context)
-            ? CustomColor.darkBg
-            : CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.info_circle_fill),
         title: ("Plant Info"),
         activeColorPrimary:
@@ -199,7 +190,6 @@ class _FrontFrameState extends State<FrontFrame> {
             mainContext: context,
             scaffoldKey: _scaffoldKey,
           ),
-          const Placeholder(),
           Info(mainContext: context),
           IndexNews(mainContext: context),
         ],
