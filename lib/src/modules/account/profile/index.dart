@@ -28,7 +28,7 @@ class _ProfileState extends State<Profile> {
   final TextEditingController birthdayController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
-  String countryDropdownValue = Countries.abw.number;
+  String countryDropdownValue = Countries.mys.number;
 
   @override
   void initState() {

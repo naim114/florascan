@@ -2,6 +2,7 @@ import 'package:florascan/src/modules/account/profile/index.dart';
 import 'package:florascan/src/modules/account/security/index.dart';
 import 'package:florascan/src/modules/auth/index.dart';
 import 'package:florascan/src/modules/home/index.dart';
+import 'package:florascan/src/modules/news/index.dart';
 import 'package:florascan/src/widgets/list_tile/list_tile_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -199,7 +200,7 @@ class _FrontFrameState extends State<FrontFrame> {
           ),
           const Placeholder(),
           const Placeholder(),
-          const Placeholder(),
+          IndexNews(mainContext: context),
         ],
         items: _navBarsItems(),
         confineInSafeArea: true,

@@ -62,6 +62,7 @@ class _MyAppState extends State<MyApp> {
           scaffoldBackgroundColor: CustomColor.darkerBg,
           appBarTheme: const AppBarTheme(
               backgroundColor: CustomColor.darkerBg,
+              surfaceTintColor: CustomColor.darkerBg,
               // titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
               iconTheme: IconThemeData(
                 color: CustomColor.neutral2,
@@ -89,11 +90,13 @@ class _MyAppState extends State<MyApp> {
           ),
           scaffoldBackgroundColor: Colors.white,
           appBarTheme: const AppBarTheme(
-              backgroundColor: Colors.white,
-              // titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
-              iconTheme: IconThemeData(
-                color: CustomColor.neutral2,
-              )),
+            backgroundColor: Colors.white,
+            surfaceTintColor: Colors.white,
+            // titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
+            iconTheme: IconThemeData(
+              color: CustomColor.neutral2,
+            ),
+          ),
           iconTheme: const IconThemeData(
             color: CustomColor.neutral1,
           ),
