@@ -12,6 +12,8 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
+import 'src/widgets/indicator/indicator_scaffold.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
@@ -28,10 +30,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
+  Key _userModelKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return StreamProvider<UserModel?>.value(
+      key: _userModelKey,
       initialData: null,
       lazy: true,
       value: AuthService().onAuthStateChanged,
@@ -47,15 +51,7 @@ class _MyAppState extends State<MyApp> {
       child: ThemeModeHandler(
         manager: MyThemeModeManager(),
         placeholderWidget: MaterialApp(
-          home: Scaffold(
-            body: Center(
-              child: LoadingAnimationWidget.flickr(
-                leftDotColor: CustomColor.primary,
-                rightDotColor: CustomColor.secondary,
-                size: 50,
-              ),
-            ),
-          ),
+          home: indicatorScaffold(backgroundColor: Colors.white),
         ),
         builder: (ThemeMode themeMode) => MaterialApp(
           themeMode: themeMode,

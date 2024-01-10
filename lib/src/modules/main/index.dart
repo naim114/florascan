@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 
 import '../../models/user_model.dart';
 import '../../services/helpers.dart';
+import '../../services/user_services.dart';
+import '../../widgets/indicator/indicator_scaffold.dart';
 import '../info/index.dart';
 
 class FrontFrame extends StatefulWidget {
@@ -86,7 +88,18 @@ class _FrontFrameState extends State<FrontFrame> {
               title: "Account",
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => Profile(user: user!),
+                  builder: (context) => FutureBuilder<UserModel?>(
+                    future: UserServices().get(user!.id),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return indicatorScaffold();
+                      } else if (snapshot.hasError) {
+                        return Text("Error: ${snapshot.error}");
+                      } else {
+                        return Profile(user: snapshot.data!);
+                      }
+                    },
+                  ),
                 ),
               ),
             ),
