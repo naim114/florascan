@@ -13,6 +13,7 @@ import '../../models/user_model.dart';
 import '../../services/helpers.dart';
 import '../../services/user_services.dart';
 import '../../widgets/indicator/indicator_scaffold.dart';
+import '../admin/index.dart';
 import '../info/index.dart';
 
 class FrontFrame extends StatefulWidget {
@@ -128,7 +129,11 @@ class _FrontFrameState extends State<FrontFrame> {
               context: context,
               icon: Icons.admin_panel_settings,
               title: "Admin Menu",
-              onTap: () {},
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AdminPanel(currentUser: user!),
+                ),
+              ),
             ),
             Divider(
               height: 20,
