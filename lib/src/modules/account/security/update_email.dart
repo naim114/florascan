@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../models/user_model.dart';
 import '../../../services/helpers.dart';
+import '../../../services/user_services.dart';
 import '../../../widgets/appbar/appbar_confirm_cancel.dart';
 
 class UpdateEmail extends StatefulWidget {
   const UpdateEmail({
     super.key,
     this.includeAuth = true,
+    required this.user,
   });
 
   final bool includeAuth;
+  final UserModel user;
 
   @override
   State<UpdateEmail> createState() => _UpdateEmailState();
@@ -44,42 +48,42 @@ class _UpdateEmailState extends State<UpdateEmail> {
         title: "Update Email",
         onCancel: () => Navigator.pop(context),
         onConfirm: () async {
-          // setState(() => _submitted = true);
+          setState(() => _submitted = true);
 
-          // if (widget.includeAuth) {
-          //   if (_validateEmptyFieldWAuth() &&
-          //       validateEmail(newEmailController) &&
-          //       validateEmail(oldEmailController)) {
-          //     final result = await UserServices().updateEmail(
-          //       user: widget.user,
-          //       oldEmail: oldEmailController.text,
-          //       newEmail: newEmailController.text,
-          //       password: passwordController.text,
-          //       includeAuth: true,
-          //     );
+          if (widget.includeAuth) {
+            if (_validateEmptyFieldWAuth() &&
+                validateEmail(newEmailController) &&
+                validateEmail(oldEmailController)) {
+              final result = await UserServices().updateEmail(
+                user: widget.user,
+                oldEmail: oldEmailController.text,
+                newEmail: newEmailController.text,
+                password: passwordController.text,
+                includeAuth: true,
+              );
 
-          //     if (result == true && context.mounted) {
-          //       Fluttertoast.showToast(
-          //           msg: "Email Updated. Please refresh to see changes.");
-          //       Navigator.pop(context);
-          //     }
-          //   }
-          // } else {
-          //   if (_validateEmptyField() && validateEmail(newEmailController)) {
-          //     final result = await UserServices().updateEmail(
-          //       user: widget.user,
-          //       newEmail: newEmailController.text,
-          //       password: passwordController.text,
-          //       includeAuth: false,
-          //     );
+              if (result == true && context.mounted) {
+                Fluttertoast.showToast(
+                    msg: "Email Updated. Please refresh to see changes.");
+                Navigator.pop(context);
+              }
+            }
+          } else {
+            if (_validateEmptyField() && validateEmail(newEmailController)) {
+              final result = await UserServices().updateEmail(
+                user: widget.user,
+                newEmail: newEmailController.text,
+                password: passwordController.text,
+                includeAuth: false,
+              );
 
-          //     if (result == true && context.mounted) {
-          //       Fluttertoast.showToast(
-          //           msg: "Email Updated. Please refresh to see changes.");
-          //       Navigator.pop(context);
-          //     }
-          //   }
-          // }
+              if (result == true && context.mounted) {
+                Fluttertoast.showToast(
+                    msg: "Email Updated. Please refresh to see changes.");
+                Navigator.pop(context);
+              }
+            }
+          }
         },
         context: context,
       ),

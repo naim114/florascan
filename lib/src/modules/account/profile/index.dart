@@ -6,16 +6,20 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../models/user_model.dart';
 import '../../../services/helpers.dart';
+import '../../../services/user_services.dart';
 import '../../../widgets/appbar/appbar_confirm_cancel.dart';
 import '../../../widgets/editor/image_uploader.dart';
 
 class Profile extends StatefulWidget {
   final Widget bottomWidget;
+  final UserModel user;
 
   const Profile({
     super.key,
     this.bottomWidget = const SizedBox(),
+    required this.user,
   });
 
   @override
@@ -32,18 +36,18 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
-    // nameController.text = widget.user.name;
-    // phoneController.text = widget.user.phone ?? "";
-    // addressController.text = widget.user.address ?? "";
-    // bioController.text = widget.user.bio ?? "";
-    // birthdayController.text = widget.user.birthday != null
-    //     ? DateFormat('dd/MM/yyyy')
-    //         .format(widget.user.birthday ?? DateTime.now())
-    //     : "";
+    nameController.text = widget.user.name;
+    phoneController.text = widget.user.phone ?? "";
+    addressController.text = widget.user.address ?? "";
+    bioController.text = widget.user.bio ?? "";
+    birthdayController.text = widget.user.birthday != null
+        ? DateFormat('dd/MM/yyyy')
+            .format(widget.user.birthday ?? DateTime.now())
+        : "";
 
-    // if (widget.user.country != null) {
-    //   countryDropdownValue = widget.user.country!.number;
-    // }
+    if (widget.user.country != null) {
+      countryDropdownValue = widget.user.country!.number;
+    }
 
     super.initState();
   }
@@ -64,22 +68,22 @@ class _ProfileState extends State<Profile> {
       appBar: appBarConfirmCancel(
         onCancel: () => Navigator.pop(context),
         onConfirm: () async {
-          // dynamic result = await UserServices().updateDetails(
-          //   user: widget.user,
-          //   name: nameController.text,
-          //   birthday: birthdayController.text == ""
-          //       ? null
-          //       : DateFormat('dd/MM/yyyy').parse(birthdayController.text),
-          //   phone: phoneController.text,
-          //   bio: bioController.text,
-          //   address: addressController.text,
-          //   countryNumber: countryDropdownValue,
-          // );
+          dynamic result = await UserServices().updateDetails(
+            user: widget.user,
+            name: nameController.text,
+            birthday: birthdayController.text == ""
+                ? null
+                : DateFormat('dd/MM/yyyy').parse(birthdayController.text),
+            phone: phoneController.text,
+            bio: bioController.text,
+            address: addressController.text,
+            countryNumber: countryDropdownValue,
+          );
 
-          // if (result == true && context.mounted) {
-          //   Fluttertoast.showToast(msg: "Details sucessfully updated.");
-          //   Navigator.of(context).pop();
-          // }
+          if (result == true && context.mounted) {
+            Fluttertoast.showToast(msg: "Details sucessfully updated.");
+            Navigator.of(context).pop();
+          }
         },
         title: "Edit Profile",
         context: context,
@@ -105,28 +109,28 @@ class _ProfileState extends State<Profile> {
                                 appBarTitle: "Upload New Avatar",
                                 onCancel: () => Navigator.of(context).pop(),
                                 onConfirm: (imageFile, uploaderContext) async {
-                                  // print("Image file: ${imageFile.toString()}");
+                                  print("Image file: ${imageFile.toString()}");
 
-                                  // Fluttertoast.showToast(
-                                  //     msg:
-                                  //         "Uploading new avatar. Please wait.");
+                                  Fluttertoast.showToast(
+                                      msg:
+                                          "Uploading new avatar. Please wait.");
 
-                                  // Navigator.pop(context);
-                                  // Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
 
-                                  // final result =
-                                  //     await UserServices().updateAvatar(
-                                  //   imageFile: imageFile,
-                                  //   user: widget.user,
-                                  // );
+                                  final result =
+                                      await UserServices().updateAvatar(
+                                    imageFile: imageFile,
+                                    user: widget.user,
+                                  );
 
-                                  // print("Update Avatar: ${result.toString()}");
+                                  print("Update Avatar: ${result.toString()}");
 
-                                  // if (result == true) {
-                                  //   Fluttertoast.showToast(
-                                  //       msg:
-                                  //           "Avatar Updated. Please refresh to see changes.");
-                                  // }
+                                  if (result == true) {
+                                    Fluttertoast.showToast(
+                                        msg:
+                                            "Avatar Updated. Please refresh to see changes.");
+                                  }
                                 },
                               ),
                             ),
@@ -160,23 +164,23 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 TextButton(
                                   onPressed: () async {
-                                    // Navigator.pop(context);
-                                    // Navigator.pop(context);
-                                    // Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
 
-                                    // final result =
-                                    //     await UserServices().removeAvatar(
-                                    //   user: widget.user,
-                                    // );
+                                    final result =
+                                        await UserServices().removeAvatar(
+                                      user: widget.user,
+                                    );
 
-                                    // print(
-                                    //     "Remove Avatar: ${result.toString()}");
+                                    print(
+                                        "Remove Avatar: ${result.toString()}");
 
-                                    // if (result == true) {
-                                    //   Fluttertoast.showToast(
-                                    //       msg:
-                                    //           "Avatar Removed. Please refresh to see changes.");
-                                    // }
+                                    if (result == true) {
+                                      Fluttertoast.showToast(
+                                          msg:
+                                              "Avatar Removed. Please refresh to see changes.");
+                                    }
                                   },
                                   child: const Text(
                                     'OK',
@@ -195,69 +199,58 @@ class _ProfileState extends State<Profile> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // SizedBox(
-                  //   width: MediaQuery.of(context).size.height * 0.17,
-                  //   child: widget.user.avatarURL == null
-                  //       ? Container(
-                  //           height: MediaQuery.of(context).size.height * 0.17,
-                  //           width: MediaQuery.of(context).size.height * 0.17,
-                  //           decoration: const BoxDecoration(
-                  //             shape: BoxShape.circle,
-                  //             image: DecorationImage(
-                  //                 image: AssetImage(
-                  //                     'assets/images/default-profile-picture.png'),
-                  //                 fit: BoxFit.cover),
-                  //           ),
-                  //         )
-                  //       : CachedNetworkImage(
-                  //           imageUrl: widget.user.avatarURL!,
-                  //           fit: BoxFit.cover,
-                  //           imageBuilder: (context, imageProvider) => Container(
-                  //             height: MediaQuery.of(context).size.height * 0.17,
-                  //             width: MediaQuery.of(context).size.height * 0.17,
-                  //             decoration: BoxDecoration(
-                  //               shape: BoxShape.circle,
-                  //               image: DecorationImage(
-                  //                   image: imageProvider, fit: BoxFit.cover),
-                  //             ),
-                  //           ),
-                  //           placeholder: (context, url) => Shimmer.fromColors(
-                  //             baseColor: CupertinoColors.systemGrey,
-                  //             highlightColor: CupertinoColors.systemGrey2,
-                  //             child: Container(
-                  //               height:
-                  //                   MediaQuery.of(context).size.height * 0.17,
-                  //               width:
-                  //                   MediaQuery.of(context).size.height * 0.17,
-                  //               decoration: const BoxDecoration(
-                  //                 shape: BoxShape.circle,
-                  //                 color: Colors.grey,
-                  //               ),
-                  //             ),
-                  //           ),
-                  //           errorWidget: (context, url, error) => Container(
-                  //             height: MediaQuery.of(context).size.height * 0.17,
-                  //             width: MediaQuery.of(context).size.height * 0.17,
-                  //             decoration: const BoxDecoration(
-                  //               shape: BoxShape.circle,
-                  //               image: DecorationImage(
-                  //                   image: AssetImage(
-                  //                       'assets/images/default-profile-picture.png'),
-                  //                   fit: BoxFit.cover),
-                  //             ),
-                  //           ),
-                  //         ),
-                  // ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.17,
+                  SizedBox(
                     width: MediaQuery.of(context).size.height * 0.17,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: AssetImage(
-                              'assets/images/default-profile-picture.png'),
-                          fit: BoxFit.cover),
-                    ),
+                    child: widget.user.avatarURL == null
+                        ? Container(
+                            height: MediaQuery.of(context).size.height * 0.17,
+                            width: MediaQuery.of(context).size.height * 0.17,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/default-profile-picture.png'),
+                                  fit: BoxFit.cover),
+                            ),
+                          )
+                        : CachedNetworkImage(
+                            imageUrl: widget.user.avatarURL!,
+                            fit: BoxFit.cover,
+                            imageBuilder: (context, imageProvider) => Container(
+                              height: MediaQuery.of(context).size.height * 0.17,
+                              width: MediaQuery.of(context).size.height * 0.17,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: imageProvider, fit: BoxFit.cover),
+                              ),
+                            ),
+                            placeholder: (context, url) => Shimmer.fromColors(
+                              baseColor: CupertinoColors.systemGrey,
+                              highlightColor: CupertinoColors.systemGrey2,
+                              child: Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.17,
+                                width:
+                                    MediaQuery.of(context).size.height * 0.17,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Container(
+                              height: MediaQuery.of(context).size.height * 0.17,
+                              width: MediaQuery.of(context).size.height * 0.17,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/images/default-profile-picture.png'),
+                                    fit: BoxFit.cover),
+                              ),
+                            ),
+                          ),
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 10.0),

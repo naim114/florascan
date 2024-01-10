@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../../../models/user_model.dart';
 import '../../../services/helpers.dart';
+import '../../../services/user_services.dart';
 import '../../../widgets/appbar/appbar_confirm_cancel.dart';
 
 class UpdatePassword extends StatefulWidget {
   const UpdatePassword({
     super.key,
     this.includeAuth = true,
+    required this.user,
   });
+
   final bool includeAuth;
+  final UserModel user;
 
   @override
   State<UpdatePassword> createState() => _UpdatePasswordState();
@@ -45,49 +50,49 @@ class _UpdatePasswordState extends State<UpdatePassword> {
         title: "Update Password",
         onCancel: () => Navigator.pop(context),
         onConfirm: () async {
-          // setState(() => _submitted = true);
+          setState(() => _submitted = true);
 
-          // print("newPasswordController: ${newPasswordController.text}");
-          // print("oldPasswordController: ${oldPasswordController.text}");
-          // print("emailController: ${emailController.text}");
+          print("newPasswordController: ${newPasswordController.text}");
+          print("oldPasswordController: ${oldPasswordController.text}");
+          print("emailController: ${emailController.text}");
 
-          // if (widget.includeAuth) {
-          //   if (_validateEmptyFieldWAuth() &&
-          //       validateEmail(emailController) &&
-          //       validatePassword(newPasswordController) &&
-          //       _validateConfirmPassword() &&
-          //       validatePassword(oldPasswordController)) {
-          //     final result = await UserServices().updatePassword(
-          //       user: widget.user,
-          //       email: emailController.text,
-          //       oldPassword: oldPasswordController.text,
-          //       newPassword: newPasswordController.text,
-          //       includeAuth: true,
-          //     );
+          if (widget.includeAuth) {
+            if (_validateEmptyFieldWAuth() &&
+                validateEmail(emailController) &&
+                validatePassword(newPasswordController) &&
+                _validateConfirmPassword() &&
+                validatePassword(oldPasswordController)) {
+              final result = await UserServices().updatePassword(
+                user: widget.user,
+                email: emailController.text,
+                oldPassword: oldPasswordController.text,
+                newPassword: newPasswordController.text,
+                includeAuth: true,
+              );
 
-          //     if (result == true && context.mounted) {
-          //       Fluttertoast.showToast(
-          //           msg: "Password Updated. Please refresh to see changes.");
-          //       Navigator.pop(context);
-          //     }
-          //   }
-          // } else {
-          //   if (_validateEmptyField() &&
-          //       _validateConfirmPassword() &&
-          //       validatePassword(newPasswordController)) {
-          //     final result = await UserServices().updatePassword(
-          //       user: widget.user,
-          //       newPassword: newPasswordController.text,
-          //       includeAuth: false,
-          //     );
+              if (result == true && context.mounted) {
+                Fluttertoast.showToast(
+                    msg: "Password Updated. Please refresh to see changes.");
+                Navigator.pop(context);
+              }
+            }
+          } else {
+            if (_validateEmptyField() &&
+                _validateConfirmPassword() &&
+                validatePassword(newPasswordController)) {
+              final result = await UserServices().updatePassword(
+                user: widget.user,
+                newPassword: newPasswordController.text,
+                includeAuth: false,
+              );
 
-          //     if (result == true && context.mounted) {
-          //       Fluttertoast.showToast(
-          //           msg: "Password Updated. Please refresh to see changes.");
-          //       Navigator.pop(context);
-          //     }
-          //   }
-          // }
+              if (result == true && context.mounted) {
+                Fluttertoast.showToast(
+                    msg: "Password Updated. Please refresh to see changes.");
+                Navigator.pop(context);
+              }
+            }
+          }
         },
         context: context,
       ),

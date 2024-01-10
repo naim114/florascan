@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../../../models/user_model.dart';
 import '../../../services/helpers.dart';
 import '../../../widgets/list_tile/list_tile_icon.dart';
 import 'update_email.dart';
 import 'update_password.dart';
 
 class Security extends StatelessWidget {
-  const Security({super.key});
+  const Security({super.key, required this.user});
+
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class Security extends StatelessWidget {
             title: "Update Email",
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => UpdateEmail(),
+                builder: (context) => UpdateEmail(user: user),
               ),
             ),
           ),
@@ -47,7 +50,7 @@ class Security extends StatelessWidget {
             title: "Update Password",
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => UpdatePassword(),
+                builder: (context) => UpdatePassword(user: user),
               ),
             ),
           ),

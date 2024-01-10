@@ -1,6 +1,5 @@
 import 'package:florascan/src/modules/account/profile/index.dart';
 import 'package:florascan/src/modules/account/security/index.dart';
-import 'package:florascan/src/modules/auth/index.dart';
 import 'package:florascan/src/modules/home/index.dart';
 import 'package:florascan/src/modules/news/index.dart';
 import 'package:florascan/src/services/auth_services.dart';
@@ -87,7 +86,7 @@ class _FrontFrameState extends State<FrontFrame> {
               title: "Account",
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => Profile(),
+                  builder: (context) => Profile(user: user!),
                 ),
               ),
             ),
@@ -98,7 +97,7 @@ class _FrontFrameState extends State<FrontFrame> {
               title: "Security",
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => Security(),
+                  builder: (context) => Security(user: user!),
                 ),
               ),
             ),
