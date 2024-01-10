@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../services/auth_services.dart';
 import '../../services/helpers.dart';
 import '../../widgets/appbar/appbar_custom.dart';
 import '../../widgets/button/button_custom.dart';
@@ -98,43 +99,43 @@ class _LogInState extends State<LogIn> {
             buttonCustom(
               child: _buttonChild,
               onPressed: () async {
-                // setState(() => _submitted = true);
-                // setState(() => _buttonChild = const CircularProgressIndicator(
-                //       color: Colors.white,
-                //     ));
+                setState(() => _submitted = true);
+                setState(() => _buttonChild = const CircularProgressIndicator(
+                      color: Colors.white,
+                    ));
 
-                // if (_validateEmptyField() && validateEmail(emailController)) {
-                //   // if validation success
-                //   final result = await AuthService().signIn(
-                //     emailController.text,
-                //     passwordController.text,
-                //   );
+                if (_validateEmptyField() && validateEmail(emailController)) {
+                  // if validation success
+                  final result = await AuthService().signIn(
+                    emailController.text,
+                    passwordController.text,
+                  );
 
-                //   print("Log In: ${result.toString()}");
+                  print("Log In: ${result.toString()}");
 
-                //   if (result != null && result == false) {
-                //     Fluttertoast.showToast(
-                //         msg: "Could not sign in with credentials");
-                //     setState(() => _buttonChild = const Text(
-                //           'Log In',
-                //           style: TextStyle(color: Colors.white),
-                //         ));
-                //   } else {
-                //     if (context.mounted) {
-                //       Navigator.pop(context);
-                //     }
-                //     // Fluttertoast.showToast(msg: "Welcome :)");
-                //     setState(() => _buttonChild = const Text(
-                //           'Log In',
-                //           style: TextStyle(color: Colors.white),
-                //         ));
-                //   }
-                // }
+                  if (result != null && result == false) {
+                    Fluttertoast.showToast(
+                        msg: "Could not sign in with credentials");
+                    setState(() => _buttonChild = const Text(
+                          'Log In',
+                          style: TextStyle(color: Colors.white),
+                        ));
+                  } else {
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                    }
+                    // Fluttertoast.showToast(msg: "Welcome :)");
+                    setState(() => _buttonChild = const Text(
+                          'Log In',
+                          style: TextStyle(color: Colors.white),
+                        ));
+                  }
+                }
 
-                // setState(() => _buttonChild = const Text(
-                //       'Log In',
-                //       style: TextStyle(color: Colors.white),
-                //     ));
+                setState(() => _buttonChild = const Text(
+                      'Log In',
+                      style: TextStyle(color: Colors.white),
+                    ));
               },
             ),
             TextButton(

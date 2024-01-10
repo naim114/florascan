@@ -3,11 +3,14 @@ import 'package:florascan/src/modules/account/security/index.dart';
 import 'package:florascan/src/modules/auth/index.dart';
 import 'package:florascan/src/modules/home/index.dart';
 import 'package:florascan/src/modules/news/index.dart';
+import 'package:florascan/src/services/auth_services.dart';
 import 'package:florascan/src/widgets/list_tile/list_tile_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:provider/provider.dart';
 
+import '../../models/user_model.dart';
 import '../../services/helpers.dart';
 import '../info/index.dart';
 
@@ -21,6 +24,8 @@ class FrontFrame extends StatefulWidget {
 class _FrontFrameState extends State<FrontFrame> {
   late PersistentTabController _controller;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final AuthService _authService = AuthService();
 
   @override
   void initState() {
@@ -63,6 +68,8 @@ class _FrontFrameState extends State<FrontFrame> {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<UserModel?>();
+
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: Drawer(
@@ -117,38 +124,7 @@ class _FrontFrameState extends State<FrontFrame> {
                   ? CustomColor.darkBg
                   : CupertinoColors.systemGrey,
             ),
-            // Login/Logout
-            ListTile(
-              title: const Text.rich(
-                TextSpan(
-                  children: [
-                    WidgetSpan(
-                      child: Icon(
-                        Icons.login,
-                        size: 16,
-                      ),
-                    ),
-                    TextSpan(
-                      text: '  ',
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                    TextSpan(
-                      text: "Login",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => AuthIndex(),
-                ),
-              ),
-            ),
+            // Logout
             ListTile(
               title: const Text.rich(
                 TextSpan(
@@ -177,7 +153,34 @@ class _FrontFrameState extends State<FrontFrame> {
                   ],
                 ),
               ),
-              onTap: () {},
+              onTap: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Log Out?'),
+                  content: const Text('Select OK to log out.'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(
+                          color: CupertinoColors.systemGrey,
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        _authService.signOut(user!);
+                      },
+                      child: const Text(
+                        'OK',
+                        style: TextStyle(color: CustomColor.danger),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

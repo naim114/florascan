@@ -12,7 +12,12 @@
           "package_name": "com.example.florascan"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "129075236084-qm9i3krbilregqbr3le9td4gpf19q43m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDnhl3Qgt-6LjAaoVzRA9Jm1uWGAQakhDQ"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "129075236084-qm9i3krbilregqbr3le9td4gpf19q43m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "129075236084-cubig887j9vcjlp4vs7qn1oeq9hpb2aj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.florascan"
+              }
+            }
+          ]
         }
       }
     }

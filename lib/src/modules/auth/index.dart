@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../services/auth_services.dart';
 import '../../services/helpers.dart';
 import '../../widgets/appbar/appbar_custom.dart';
 import '../../widgets/button/button_custom_pill.dart';
@@ -187,15 +188,15 @@ Widget registerButton({
                       onPressed: () async {
                         Navigator.pop(context);
 
-                        // try {
-                        //   final result =
-                        //       await AuthService().continueWithGoogle();
+                        try {
+                          final result =
+                              await AuthService().continueWithGoogle();
 
-                        //   print("Continue With Google: ${result.toString()}");
-                        // } catch (e) {
-                        //   print(e.toString());
-                        //   Fluttertoast.showToast(msg: e.toString());
-                        // }
+                          print("Continue With Google: ${result.toString()}");
+                        } catch (e) {
+                          print(e.toString());
+                          Fluttertoast.showToast(msg: e.toString());
+                        }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -333,15 +334,15 @@ Widget loginButton({
                       onPressed: () async {
                         Navigator.pop(context);
 
-                        // try {
-                        //   final result =
-                        //       await AuthService().continueWithGoogle();
+                        try {
+                          final result =
+                              await AuthService().continueWithGoogle();
 
-                        //   print("Continue With Google: ${result.toString()}");
-                        // } catch (e) {
-                        //   print(e.toString());
-                        //   Fluttertoast.showToast(msg: e.toString());
-                        // }
+                          print("Continue With Google: ${result.toString()}");
+                        } catch (e) {
+                          print(e.toString());
+                          Fluttertoast.showToast(msg: e.toString());
+                        }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

@@ -202,6 +202,8 @@ class AuthService {
 
       return null;
     } catch (e) {
+      print(e);
+
       Fluttertoast.showToast(
         msg: e.toString(),
       );

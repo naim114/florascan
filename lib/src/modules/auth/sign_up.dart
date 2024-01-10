@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../services/auth_services.dart';
 import '../../services/helpers.dart';
 import '../../widgets/appbar/appbar_custom.dart';
 import '../../widgets/button/button_custom.dart';
@@ -145,58 +146,58 @@ class _SignUpState extends State<SignUp> {
                     buttonCustom(
                       child: _buttonChild,
                       onPressed: () async {
-                        // setState(() => _submitted = true);
-                        // setState(() =>
-                        //     _buttonChild = const CircularProgressIndicator(
-                        //       color: Colors.white,
-                        //     ));
+                        setState(() => _submitted = true);
+                        setState(() =>
+                            _buttonChild = const CircularProgressIndicator(
+                              color: Colors.white,
+                            ));
 
-                        // if (_validateEmptyField() &&
-                        //     validateEmail(emailController) &&
-                        //     validatePassword(passwordController) &&
-                        //     _validateConfirmPassword()) {
-                        //   // if validation success
+                        if (_validateEmptyField() &&
+                            validateEmail(emailController) &&
+                            validatePassword(passwordController) &&
+                            _validateConfirmPassword()) {
+                          // if validation success
 
-                        //   try {
-                        //     final result = await AuthService().signUp(
-                        //       name: nameController.text,
-                        //       email: emailController.text,
-                        //       password: passwordController.text,
-                        //     );
+                          try {
+                            final result = await AuthService().signUp(
+                              name: nameController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
+                            );
 
-                        //     print("Result: $result");
+                            print("Result: $result");
 
-                        //     if (result == null) {
-                        //       setState(() => _buttonChild = const Text(
-                        //             "Register Now",
-                        //             style: TextStyle(color: Colors.white),
-                        //           ));
-                        //     } else {
-                        //       setState(() => _buttonChild = const Text(
-                        //             "Register Now",
-                        //             style: TextStyle(color: Colors.white),
-                        //           ));
+                            if (result == null) {
+                              setState(() => _buttonChild = const Text(
+                                    "Register Now",
+                                    style: TextStyle(color: Colors.white),
+                                  ));
+                            } else {
+                              setState(() => _buttonChild = const Text(
+                                    "Register Now",
+                                    style: TextStyle(color: Colors.white),
+                                  ));
 
-                        //       final signOut = AuthService().signOut(result);
-                        //       print("Sign Out: ${signOut.toString()}");
+                              final signOut = AuthService().signOut(result);
+                              print("Sign Out: ${signOut.toString()}");
 
-                        //       if (context.mounted) {
-                        //         Fluttertoast.showToast(
-                        //             msg:
-                        //                 "Please log in first before continue.");
-                        //         Navigator.pop(context);
-                        //       }
-                        //     }
-                        //   } catch (e) {
-                        //     print(e.toString());
-                        //     Fluttertoast.showToast(msg: e.toString());
-                        //   }
-                        // } else {
-                        //   setState(() => _buttonChild = const Text(
-                        //         "Register Now",
-                        //         style: TextStyle(color: Colors.white),
-                        //       ));
-                        // }
+                              if (context.mounted) {
+                                Fluttertoast.showToast(
+                                    msg:
+                                        "Please log in first before continue.");
+                                Navigator.pop(context);
+                              }
+                            }
+                          } catch (e) {
+                            print(e.toString());
+                            Fluttertoast.showToast(msg: e.toString());
+                          }
+                        } else {
+                          setState(() => _buttonChild = const Text(
+                                "Register Now",
+                                style: TextStyle(color: Colors.white),
+                              ));
+                        }
                       },
                     ),
                   ],
