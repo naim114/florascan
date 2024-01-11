@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../models/user_model.dart';
 import '../../../services/helpers.dart';
@@ -38,21 +40,47 @@ class Security extends StatelessWidget {
             context: context,
             icon: Icons.email,
             title: "Update Email",
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => UpdateEmail(user: user),
-              ),
-            ),
+            onTap: () {
+              User? firebaseUser = FirebaseAuth.instance.currentUser;
+
+              if (firebaseUser != null) {
+                if (firebaseUser.providerData.first.providerId ==
+                    'google.com') {
+                  Fluttertoast.showToast(
+                      msg:
+                          'Update email not available for account signed in from google');
+                } else {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => UpdateEmail(user: user),
+                    ),
+                  );
+                }
+              }
+            },
           ),
           listTileIcon(
             context: context,
             icon: Icons.key,
             title: "Update Password",
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => UpdatePassword(user: user),
-              ),
-            ),
+            onTap: () {
+              User? firebaseUser = FirebaseAuth.instance.currentUser;
+
+              if (firebaseUser != null) {
+                if (firebaseUser.providerData.first.providerId ==
+                    'google.com') {
+                  Fluttertoast.showToast(
+                      msg:
+                          'Update password not available for account signed in from google');
+                } else {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => UpdatePassword(user: user),
+                    ),
+                  );
+                }
+              }
+            },
           ),
         ],
       ),
