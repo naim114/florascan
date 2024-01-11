@@ -256,6 +256,8 @@ class UserServices {
       if (e.toString().contains('[firebase_auth/email-already-in-use]')) {
         Fluttertoast.showToast(
             msg: "Email already taken. Please try different email.");
+      } else if (e.toString().contains('[firebase_auth/wrong-password]')) {
+        Fluttertoast.showToast(msg: "Wrong old email or password.");
       } else if (e
           .toString()
           .contains('[firebase_auth/requires-recent-login]')) {
