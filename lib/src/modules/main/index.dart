@@ -1,9 +1,5 @@
-import 'package:florascan/src/modules/account/profile/index.dart';
-import 'package:florascan/src/modules/account/security/index.dart';
 import 'package:florascan/src/modules/home/index.dart';
 import 'package:florascan/src/modules/news/index.dart';
-import 'package:florascan/src/services/auth_services.dart';
-import 'package:florascan/src/widgets/list_tile/list_tile_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -11,10 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/user_model.dart';
 import '../../services/helpers.dart';
-import '../../services/user_services.dart';
-import '../../widgets/indicator/indicator_scaffold.dart';
 import '../account/index.dart';
-import '../admin/index.dart';
 import '../info/index.dart';
 
 class FrontFrame extends StatefulWidget {
@@ -27,8 +20,6 @@ class FrontFrame extends StatefulWidget {
 class _FrontFrameState extends State<FrontFrame> {
   late PersistentTabController _controller;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final AuthService _authService = AuthService();
 
   @override
   void initState() {
@@ -50,7 +41,20 @@ class _FrontFrameState extends State<FrontFrame> {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.health_and_safety),
+        title: ("List"),
+        activeColorPrimary:
+            isDarkTheme(context) ? Colors.white : CustomColor.primary,
+        inactiveColorPrimary: isDarkTheme(context)
+            ? CustomColor.darkBg
+            : CupertinoColors.systemGrey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(
+          CupertinoIcons.leaf_arrow_circlepath,
+          color: isDarkTheme(context) ? CustomColor.primary : Colors.white,
+        ),
         title: ("Diagnose"),
+        contentPadding: 0,
         activeColorPrimary:
             isDarkTheme(context) ? Colors.white : CustomColor.primary,
         inactiveColorPrimary: isDarkTheme(context)
@@ -93,6 +97,7 @@ class _FrontFrameState extends State<FrontFrame> {
             scaffoldKey: _scaffoldKey,
           ),
           Info(mainContext: context),
+          Placeholder(),
           IndexNews(mainContext: context),
           Account(mainContext: context, user: user),
         ],
@@ -134,7 +139,7 @@ class _FrontFrameState extends State<FrontFrame> {
           duration: Duration(milliseconds: 200),
         ),
         navBarStyle:
-            NavBarStyle.style12, // Choose the nav bar style with this property.
+            NavBarStyle.style15, // Choose the nav bar style with this property.
         margin: const EdgeInsets.all(20),
       ),
     );
