@@ -60,6 +60,7 @@ dependencies:
   search_page: ^2.3.0
   dotted_line: ^3.2.2
   flutter_quill: ^9.2.4
+  textfield_tags: ^2.0.2
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/user_model.dart';
 import '../../services/helpers.dart';
+import '../../widgets/builder/news_builder.dart';
 import '../../widgets/builder/user_builder.dart';
 import '../../widgets/list_tile/list_tile_icon.dart';
 
@@ -42,6 +43,19 @@ class AdminPanel extends StatelessWidget {
                 builder: (context) => UsersBuilder(
                   currentUser: currentUser,
                   pushTo: 'AdminPanelUsers',
+                ),
+              ),
+            ),
+          ),
+          listTileIcon(
+            context: context,
+            icon: Icons.newspaper,
+            title: "News",
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => NewsBuilder(
+                  currentUser: currentUser,
+                  pushTo: 'AdminPanelNews',
                 ),
               ),
             ),
