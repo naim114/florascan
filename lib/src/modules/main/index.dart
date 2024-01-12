@@ -13,6 +13,7 @@ import '../../models/user_model.dart';
 import '../../services/helpers.dart';
 import '../../services/user_services.dart';
 import '../../widgets/indicator/indicator_scaffold.dart';
+import '../account/index.dart';
 import '../admin/index.dart';
 import '../info/index.dart';
 
@@ -48,8 +49,8 @@ class _FrontFrameState extends State<FrontFrame> {
             : CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.info_circle_fill),
-        title: ("Plant Info"),
+        icon: const Icon(Icons.health_and_safety),
+        title: ("Diagnose"),
         activeColorPrimary:
             isDarkTheme(context) ? Colors.white : CustomColor.primary,
         inactiveColorPrimary: isDarkTheme(context)
@@ -65,6 +66,15 @@ class _FrontFrameState extends State<FrontFrame> {
             ? CustomColor.darkBg
             : CupertinoColors.systemGrey,
       ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(CupertinoIcons.person_fill),
+        title: ("Account"),
+        activeColorPrimary:
+            isDarkTheme(context) ? Colors.white : CustomColor.primary,
+        inactiveColorPrimary: isDarkTheme(context)
+            ? CustomColor.darkBg
+            : CupertinoColors.systemGrey,
+      ),
     ];
   }
 
@@ -74,134 +84,6 @@ class _FrontFrameState extends State<FrontFrame> {
 
     return Scaffold(
       key: _scaffoldKey,
-      endDrawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              child: Placeholder(),
-            ),
-            // Account
-            listTileIcon(
-              context: context,
-              icon: CupertinoIcons.person_fill,
-              title: "Account",
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => FutureBuilder<UserModel?>(
-                    future: UserServices().get(user!.id),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return indicatorScaffold();
-                      } else if (snapshot.hasError) {
-                        return Text("Error: ${snapshot.error}");
-                      } else {
-                        return Profile(user: snapshot.data!);
-                      }
-                    },
-                  ),
-                ),
-              ),
-            ),
-            // Security (Password, Login activity)
-            listTileIcon(
-              context: context,
-              icon: CupertinoIcons.shield_lefthalf_fill,
-              title: "Security",
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => Security(user: user!),
-                ),
-              ),
-            ),
-            // Theme
-            listTileIcon(
-              context: context,
-              icon: isDarkTheme(context)
-                  ? CupertinoIcons.moon_fill
-                  : CupertinoIcons.sun_max_fill,
-              title: "Theme",
-              onTap: () => selectThemeMode(context),
-            ),
-            // Admin Panel
-            listTileIcon(
-              context: context,
-              icon: Icons.admin_panel_settings,
-              title: "Admin Menu",
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => AdminPanel(currentUser: user!),
-                ),
-              ),
-            ),
-            Divider(
-              height: 20,
-              color: isDarkTheme(context)
-                  ? CustomColor.darkBg
-                  : CupertinoColors.systemGrey,
-            ),
-            // Logout
-            ListTile(
-              title: const Text.rich(
-                TextSpan(
-                  children: [
-                    WidgetSpan(
-                      child: Icon(
-                        Icons.logout,
-                        size: 16,
-                        color: Colors.red,
-                      ),
-                    ),
-                    TextSpan(
-                      text: '  ',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.red,
-                      ),
-                    ),
-                    TextSpan(
-                      text: "Logout",
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              onTap: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Log Out?'),
-                  content: const Text('Select OK to log out.'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(
-                          color: CupertinoColors.systemGrey,
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        _authService.signOut(user!);
-                      },
-                      child: const Text(
-                        'OK',
-                        style: TextStyle(color: CustomColor.danger),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
       body: PersistentTabView(
         context,
         controller: _controller,
@@ -212,6 +94,7 @@ class _FrontFrameState extends State<FrontFrame> {
           ),
           Info(mainContext: context),
           IndexNews(mainContext: context),
+          Account(mainContext: context, user: user),
         ],
         items: _navBarsItems(),
         confineInSafeArea: true,

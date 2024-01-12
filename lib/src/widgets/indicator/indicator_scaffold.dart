@@ -7,7 +7,7 @@ Widget indicatorScaffold({
   double size = 50,
   Color leftDotColor = CustomColor.primary,
   Color rightDotColor = CustomColor.secondary,
-  Color backgroundColor = Colors.transparent,
+  Color backgroundColor = Colors.white,
 }) =>
     Scaffold(
       backgroundColor: backgroundColor,
