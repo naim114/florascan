@@ -1,4 +1,6 @@
+import 'package:florascan/src/modules/home/info_category_section.dart';
 import 'package:florascan/src/modules/home/news_row.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -16,16 +18,40 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Placeholder(),
+        title: const Placeholder(),
       ),
       body: ListView(
         children: [
+          GestureDetector(
+            onTap: () {},
+            child: const Padding(
+              padding: EdgeInsets.only(
+                left: 8,
+                right: 8,
+                top: 20,
+              ),
+              child: Card(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ListTile(
+                      leading: Icon(CupertinoIcons.leaf_arrow_circlepath),
+                      title: Text('Get Started'),
+                      subtitle: Text('Tap on here to diagnose plant disease.'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           newsRow(
             context: context,
             mainContext: mainContext,
-            title: "Get Started",
+            title: "Read about plant disease",
             icon: Icons.info,
           ),
+          infoCategorySection(context: context),
+          const SizedBox(height: 20),
         ],
       ),
     );
