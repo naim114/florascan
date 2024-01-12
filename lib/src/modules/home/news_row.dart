@@ -27,10 +27,11 @@ Widget newsRow({
                 ),
                 const WidgetSpan(child: SizedBox(width: 5)),
                 WidgetSpan(
-                    child: Icon(
-                  icon,
-                  size: 18,
-                )),
+                  child: Icon(
+                    icon,
+                    size: 18,
+                  ),
+                ),
               ],
             ),
           ),

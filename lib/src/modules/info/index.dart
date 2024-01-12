@@ -1,4 +1,5 @@
 import 'package:florascan/src/modules/info/menu.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/typography/page_title_icon.dart';
@@ -17,7 +18,7 @@ class Info extends StatelessWidget {
               top: 25,
               left: 25,
               right: 25,
-              bottom: 10,
+              // bottom: 10,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,12 +42,28 @@ class Info extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Text(
-              "Tomato",
-              style: TextStyle(
-                decoration: TextDecoration.underline,
-                fontWeight: FontWeight.bold,
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: GestureDetector(
+              onTap: () async {},
+              child: TextField(
+                readOnly: false,
+                autofocus: false,
+                enabled: false,
+                decoration: InputDecoration(
+                  fillColor: Theme.of(context).brightness == Brightness.dark
+                      ? CupertinoColors.darkBackgroundGray
+                      : Colors.white,
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                    borderSide: const BorderSide(
+                      color: CupertinoColors.systemGrey,
+                      width: 1,
+                    ),
+                  ),
+                  contentPadding: const EdgeInsets.all(0),
+                  prefixIcon: const Icon(Icons.search),
+                  hintText: 'Search for plant disease',
+                ),
               ),
             ),
           ),

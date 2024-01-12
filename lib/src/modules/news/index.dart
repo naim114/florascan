@@ -25,29 +25,26 @@ class _IndexNewsState extends State<IndexNews> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.045,
-          child: GestureDetector(
-            onTap: () async {},
-            child: TextField(
-              readOnly: false,
-              autofocus: false,
-              enabled: false,
-              decoration: InputDecoration(
-                fillColor: Theme.of(context).brightness == Brightness.dark
-                    ? CupertinoColors.darkBackgroundGray
-                    : Colors.white,
-                disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50.0),
-                  borderSide: const BorderSide(
-                    color: CupertinoColors.systemGrey,
-                    width: 1,
-                  ),
+        title: GestureDetector(
+          onTap: () async {},
+          child: TextField(
+            readOnly: false,
+            autofocus: false,
+            enabled: false,
+            decoration: InputDecoration(
+              fillColor: Theme.of(context).brightness == Brightness.dark
+                  ? CupertinoColors.darkBackgroundGray
+                  : Colors.white,
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(50.0),
+                borderSide: const BorderSide(
+                  color: CupertinoColors.systemGrey,
+                  width: 1,
                 ),
-                contentPadding: const EdgeInsets.all(0),
-                prefixIcon: const Icon(Icons.search),
-                hintText: 'Search news',
               ),
+              contentPadding: const EdgeInsets.all(0),
+              prefixIcon: const Icon(Icons.search),
+              hintText: 'Search for news',
             ),
           ),
         ),

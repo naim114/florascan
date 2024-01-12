@@ -20,17 +20,17 @@ class News {
 List<News?> newsList = [
   News(
     title: 'Breaking News 1',
-    imgURL: 'https://dummyimage.com/600x400/2600fa/ffffff.png&text=example',
+    imgURL: 'https://dummyimage.com/1280x1000/2600fa/ffffff.png&text=example',
     createdAt: DateTime.now().subtract(const Duration(days: 1)),
   ),
   News(
     title: 'Latest Update 2',
-    imgURL: 'https://dummyimage.com/600x400/fc0037/ffffff.png&text=example',
+    imgURL: 'https://dummyimage.com/1280x1000/fc0037/ffffff.png&text=example',
     createdAt: DateTime.now().subtract(const Duration(days: 2)),
   ),
   News(
     title: 'Important Announcement 3',
-    imgURL: 'https://dummyimage.com/600x400/e9fa00/ffffff.png&text=example',
+    imgURL: 'https://dummyimage.com/1280x1000/e9fa00/ffffff.png&text=example',
     createdAt: DateTime.now().subtract(const Duration(days: 3)),
   ),
 ];

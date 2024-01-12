@@ -47,7 +47,7 @@ class Home extends StatelessWidget {
           newsRow(
             context: context,
             mainContext: mainContext,
-            title: "Read about plant disease",
+            title: "Plant disease articles",
             icon: Icons.info,
           ),
           infoCategorySection(context: context),

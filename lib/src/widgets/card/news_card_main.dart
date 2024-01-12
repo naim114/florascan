@@ -20,7 +20,7 @@ class News {
 
 News news = News(
   title: 'Breaking News 1',
-  imgURL: 'https://dummyimage.com/600x400/2600fa/ffffff.png&text=example',
+  imgURL: 'https://dummyimage.com/1280x1000/2600fa/ffffff.png&text=example',
   createdAt: DateTime.now().subtract(const Duration(days: 1)),
 );
 
