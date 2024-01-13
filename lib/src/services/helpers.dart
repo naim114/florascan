@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:theme_mode_handler/theme_picker_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
@@ -137,3 +140,32 @@ String timeAgo(DateTime dateTime) {
     return 'Just now';
   }
 }
+
+void openImageViewerDialog({
+  required BuildContext context,
+  required ImageProvider<Object> imageProvider,
+  PhotoViewHeroAttributes? heroAttributes,
+}) =>
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Container(
+            color: Colors.transparent,
+            child: PhotoView(
+              loadingBuilder: (context, i) => Shimmer.fromColors(
+                baseColor: CupertinoColors.systemGrey,
+                highlightColor: CupertinoColors.systemGrey2,
+                child: Container(
+                  color: Colors.grey,
+                ),
+              ),
+              tightMode: true,
+              imageProvider: imageProvider,
+              heroAttributes: heroAttributes,
+            ),
+          ),
+        );
+      },
+    );

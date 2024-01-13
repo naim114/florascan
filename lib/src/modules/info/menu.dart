@@ -1,3 +1,4 @@
+import 'package:florascan/src/widgets/image/image_viewer.dart';
 import 'package:flutter/material.dart';
 
 import '../../services/helpers.dart';
@@ -35,11 +36,19 @@ class DiseaseInfoMenu extends StatelessWidget {
       body: ListView(
         children: [
           // Thumbnail
-          Image.asset(
-            'assets/images/noimage.png',
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.3,
+          GestureDetector(
+            onTap: () => openImageViewerDialog(
+              context: context,
+              imageProvider: NetworkImage(
+                "https://dummyimage.com/1280x1000/2600fa/ffffff.png&text=example",
+              ),
+            ),
+            child: Image.asset(
+              'assets/images/noimage.png',
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.3,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(
@@ -65,7 +74,7 @@ class DiseaseInfoMenu extends StatelessWidget {
               "Scientific Name",
               style: TextStyle(
                 color: getColorByBackground(context),
-                fontSize: 15,
+                fontSize: 20,
               ),
             ),
           ),
@@ -117,13 +126,21 @@ class DiseaseInfoMenu extends StatelessWidget {
                       3,
                       (index) => Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: Image.asset(
-                            'assets/images/noimage.png',
-                            fit: BoxFit.cover,
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            width: MediaQuery.of(context).size.height * 0.2,
+                        child: GestureDetector(
+                          onTap: () => openImageViewerDialog(
+                            context: context,
+                            imageProvider: NetworkImage(
+                              "https://dummyimage.com/1280x1000/2600fa/ffffff.png&text=example",
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Image.asset(
+                              'assets/images/noimage.png',
+                              fit: BoxFit.cover,
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              width: MediaQuery.of(context).size.height * 0.2,
+                            ),
                           ),
                         ),
                       ),
