@@ -1,8 +1,9 @@
-import 'package:florascan/src/modules/info/menu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../services/helpers.dart';
 import '../../widgets/typography/page_title_icon.dart';
+import 'menu.dart';
 
 class Info extends StatelessWidget {
   const Info({super.key, required this.mainContext});
@@ -42,7 +43,11 @@ class Info extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.only(
+              left: 20.0,
+              right: 20.0,
+              bottom: 5.0,
+            ),
             child: GestureDetector(
               onTap: () async {},
               child: TextField(
@@ -67,38 +72,36 @@ class Info extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            contentPadding: const EdgeInsets.only(left: 25, right: 20),
-            title: Text("Disease A"),
-            trailing: const Icon(Icons.arrow_right),
-            onTap: () => Navigator.of(mainContext).push(
-              MaterialPageRoute(
-                builder: (context) => DiseaseInfoMenu(
-                  title: 'Disease A',
-                ),
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 15,
             ),
-          ),
-          ListTile(
-            contentPadding: const EdgeInsets.only(left: 25, right: 20),
-            title: Text("Disease B"),
-            trailing: const Icon(Icons.arrow_right),
-            onTap: () => Navigator.of(mainContext).push(
-              MaterialPageRoute(
-                builder: (context) => DiseaseInfoMenu(
-                  title: 'Disease B',
+            child: Card(
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/noimage.png'),
+                  radius: 25.0,
                 ),
-              ),
-            ),
-          ),
-          ListTile(
-            contentPadding: const EdgeInsets.only(left: 25, right: 20),
-            title: Text("Disease C"),
-            trailing: const Icon(Icons.arrow_right),
-            onTap: () => Navigator.of(mainContext).push(
-              MaterialPageRoute(
-                builder: (context) => DiseaseInfoMenu(
-                  title: 'Disease C',
+                title: Text(
+                  "Disease Name",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: getColorByBackground(context)),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+                subtitle: Text('Scientific Name'),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 20,
+                ),
+                onTap: () => Navigator.of(mainContext).push(
+                  MaterialPageRoute(
+                    builder: (context) => DiseaseInfoMenu(
+                      title: 'Disease B',
+                    ),
+                  ),
                 ),
               ),
             ),
