@@ -9,6 +9,7 @@ import '../../widgets/list_tile/list_tile_icon.dart';
 import '../../widgets/list_tile/list_tile_profile.dart';
 import '../../widgets/typography/page_title_icon.dart';
 import '../admin/index.dart';
+import '../news/menu.dart';
 import 'profile/index.dart';
 import 'security/index.dart';
 
@@ -130,12 +131,11 @@ class _AccountState extends State<Account> {
                             context: context,
                             icon: Icons.newspaper,
                             title: "News",
-                            // onTap: () => Navigator.of(widget.mainContext).push(
-                            //   MaterialPageRoute(
-                            //     builder: (context) => NewsMenu(user: user),
-                            //   ),
-                            // ),
-                            onTap: () {},
+                            onTap: () => Navigator.of(widget.mainContext).push(
+                              MaterialPageRoute(
+                                builder: (context) => NewsMenu(user: user),
+                              ),
+                            ),
                           ),
                           // ADMIN ONLY
                           user.role != null && user.role!.name == "user"
