@@ -79,7 +79,26 @@ class _IndexNewsState extends State<IndexNews> {
             appBar: AppBar(
               centerTitle: true,
               title: GestureDetector(
-                onTap: () async {},
+                onTap: () async {
+                  showDialog(
+                    context: widget.mainContext,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  );
+
+                  await NewsService().searchNews(
+                    context: widget.mainContext,
+                    user: widget.user!,
+                  );
+
+                  if (context.mounted) {
+                    Navigator.of(widget.mainContext, rootNavigator: true).pop();
+                  }
+                },
                 child: TextField(
                   readOnly: false,
                   autofocus: false,
