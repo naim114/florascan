@@ -1,42 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../../models/news_model.dart';
+import '../../models/user_model.dart';
 import '../../widgets/card/news_card.dart';
 import '../../widgets/card/news_card_main.dart';
-
-class News {
-  final String title;
-  final String? imgURL; // Use nullable String for image URL
-  final DateTime createdAt;
-
-  News({
-    required this.title,
-    required this.imgURL,
-    required this.createdAt,
-  });
-}
-
-// Dummy data for the newsList
-List<News> newsList = [
-  News(
-    title: 'Breaking News 1',
-    imgURL: 'https://dummyimage.com/1280x1000/2600fa/ffffff.png&text=example',
-    createdAt: DateTime.now().subtract(const Duration(days: 1)),
-  ),
-  News(
-    title: 'Latest Update 2',
-    imgURL: 'https://dummyimage.com/1280x1000/fc0037/ffffff.png&text=example',
-    createdAt: DateTime.now().subtract(const Duration(days: 2)),
-  ),
-  News(
-    title: 'Important Announcement 3',
-    imgURL: 'https://dummyimage.com/1280x1000/e9fa00/ffffff.png&text=example',
-    createdAt: DateTime.now().subtract(const Duration(days: 3)),
-  ),
-];
+import 'news_view.dart';
 
 Widget newsSection({
   required BuildContext context,
   required BuildContext mainContext,
+  required List<NewsModel?> newsList,
+  required UserModel user,
   required String title,
 }) =>
     Column(
@@ -44,6 +18,8 @@ Widget newsSection({
       children: [
         newsCardMain(
           context: mainContext,
+          news: newsList[0]!,
+          user: user,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +39,7 @@ Widget newsSection({
               children: List.generate(
                 newsList.length - 1,
                 (index) {
-                  News news = newsList[index + 1];
+                  NewsModel news = newsList[index + 1]!;
 
                   return Padding(
                     padding: const EdgeInsets.symmetric(
@@ -75,19 +51,16 @@ Widget newsSection({
                       title: news.title,
                       date: news.createdAt,
                       likeCount:
-                          // news.likedBy == null ? 0 : news.likedBy!.length,
-                          24,
-                      onTap: () {
-                        // return Navigator.of(mainContext).push(
-                        //   MaterialPageRoute(
-                        //     builder: (context) => NewsView(
-                        //       mainContext: mainContext,
-                        //       news: news,
-                        //       user: user,
-                        //     ),
-                        //   ),
-                        // );
-                      },
+                          news.likedBy == null ? 0 : news.likedBy!.length,
+                      onTap: () => Navigator.of(mainContext).push(
+                        MaterialPageRoute(
+                          builder: (context) => NewsView(
+                            mainContext: mainContext,
+                            news: news,
+                            user: user,
+                          ),
+                        ),
+                      ),
                     ),
                   );
                 },

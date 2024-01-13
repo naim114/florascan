@@ -99,7 +99,7 @@ class _FrontFrameState extends State<FrontFrame> {
           ),
           Info(mainContext: context),
           Placeholder(),
-          IndexNews(mainContext: context),
+          IndexNews(mainContext: context, user: user),
           Account(mainContext: context, user: user),
         ],
         items: _navBarsItems(),

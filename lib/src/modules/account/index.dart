@@ -4,7 +4,7 @@ import '../../models/user_model.dart';
 import '../../services/auth_services.dart';
 import '../../services/helpers.dart';
 import '../../services/user_services.dart';
-import '../../widgets/indicator/indicator_scaffold.dart';
+import '../../widgets/loader/indicator_scaffold.dart';
 import '../../widgets/list_tile/list_tile_icon.dart';
 import '../../widgets/list_tile/list_tile_profile.dart';
 import '../../widgets/typography/page_title_icon.dart';

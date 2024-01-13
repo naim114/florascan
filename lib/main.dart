@@ -11,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
-import 'src/widgets/indicator/indicator_scaffold.dart';
+import 'src/widgets/loader/indicator_scaffold.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

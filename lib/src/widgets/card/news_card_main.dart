@@ -4,40 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../models/news_model.dart';
+import '../../models/user_model.dart';
+import '../../modules/news/news_view.dart';
 import '../../services/helpers.dart';
-
-class News {
-  final String title;
-  final String? imgURL; // Use nullable String for image URL
-  final DateTime createdAt;
-
-  News({
-    required this.title,
-    required this.imgURL,
-    required this.createdAt,
-  });
-}
-
-News news = News(
-  title: 'Breaking News 1',
-  imgURL: 'https://dummyimage.com/1280x1000/2600fa/ffffff.png&text=example',
-  createdAt: DateTime.now().subtract(const Duration(days: 1)),
-);
 
 Widget newsCardMain({
   required BuildContext context,
+  required NewsModel news,
+  required UserModel user,
 }) {
   return InkWell(
-    onTap: () {
-      //   Navigator.of(context).push(
-      //   MaterialPageRoute(
-      //       builder: (context) => NewsView(
-      //             mainContext: context,
-      //             news: news,
-      //             user: user,
-      //           )),
-      // );
-    },
+    onTap: () => Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => NewsView(
+          mainContext: context,
+          news: news,
+          user: user,
+        ),
+      ),
+    ),
     child: Container(
       padding: const EdgeInsets.all(20),
       decoration: const BoxDecoration(
@@ -66,7 +52,7 @@ Widget newsCardMain({
           Padding(
             padding: const EdgeInsets.only(top: 5),
             child: Text(
-              "Lorem ipsum dolor amet sit",
+              news.description,
               style:
                   TextStyle(color: getColorByBackground(context), fontSize: 18),
               maxLines: 3,
@@ -106,8 +92,7 @@ Widget newsCardMain({
           const SizedBox(height: 10),
           // By
           Text(
-            // "By ${news.author!.name}",
-            "By Person A",
+            "By ${news.author!.name}",
             style: const TextStyle(
               color: CupertinoColors.systemGrey,
             ),
@@ -135,8 +120,7 @@ Widget newsCardMain({
                 color: CupertinoColors.systemGrey,
               ),
               Text(
-                ' 12',
-                // ' ${news.likedBy == null ? 0 : news.likedBy!.length}',
+                ' ${news.likedBy == null ? 0 : news.likedBy!.length}',
                 style: const TextStyle(
                   color: CupertinoColors.systemGrey,
                 ),
