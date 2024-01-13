@@ -39,7 +39,8 @@ List<Widget> sliderImages({
                       : CachedNetworkImage(
                           imageUrl: news.imgURL!,
                           fit: BoxFit.cover,
-                          height: 600,
+                          // height: 600,
+                          width: 1000,
                           placeholder: (context, url) => Shimmer.fromColors(
                             baseColor: CupertinoColors.systemGrey,
                             highlightColor: CupertinoColors.systemGrey2,

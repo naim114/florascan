@@ -61,58 +61,62 @@ class _CarouselNewsState extends State<CarouselNews> {
   }) =>
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: widget.newsList.asMap().entries.map((entry) {
-          return AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            transitionBuilder: (Widget child, Animation<double> animation) {
-              return ScaleTransition(scale: animation, child: child);
-            },
-            child: current == entry.key
-                ? Container(
-                    width: 20,
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 8.0,
-                      horizontal: 4.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: (Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : Colors.black)
-                          .withOpacity(
-                        current == entry.key ? 0.9 : 0.4,
-                      ),
-                      borderRadius: const BorderRadius.all(Radius.circular(40)),
-                    ),
-                    child: const SizedBox(
-                      height: 5,
-                    ),
-                  )
-                : GestureDetector(
-                    onTap: () {
-                      controller.animateToPage(entry.key);
-                      setState(() {
-                        current = entry.key;
-                      });
-                    },
-                    child: Container(
-                      width: 8,
-                      height: 5,
+        children: widget.newsList.asMap().entries.map(
+          (entry) {
+            return AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return ScaleTransition(scale: animation, child: child);
+              },
+              child: current == entry.key
+                  ? Container(
+                      width: 20,
                       margin: const EdgeInsets.symmetric(
                         vertical: 8.0,
                         horizontal: 4.0,
                       ),
                       decoration: BoxDecoration(
-                        shape: BoxShape.circle,
                         color: (Theme.of(context).brightness == Brightness.dark
                                 ? Colors.white
                                 : Colors.black)
                             .withOpacity(
                           current == entry.key ? 0.9 : 0.4,
                         ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(40)),
+                      ),
+                      child: const SizedBox(
+                        height: 5,
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: () {
+                        controller.animateToPage(entry.key);
+                        setState(() {
+                          current = entry.key;
+                        });
+                      },
+                      child: Container(
+                        width: 8,
+                        height: 5,
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 8.0,
+                          horizontal: 4.0,
+                        ),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:
+                              (Theme.of(context).brightness == Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black)
+                                  .withOpacity(
+                            current == entry.key ? 0.9 : 0.4,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-          );
-        }).toList(),
+            );
+          },
+        ).toList(),
       );
 }
