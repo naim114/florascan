@@ -95,6 +95,7 @@ class _FrontFrameState extends State<FrontFrame> {
           Home(
             mainContext: context,
             scaffoldKey: _scaffoldKey,
+            user: user,
           ),
           Info(mainContext: context),
           Placeholder(),

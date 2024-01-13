@@ -4,38 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
-class News {
-  final String title;
-  final String? imgURL; // Use nullable String for image URL
-  final DateTime createdAt;
+import '../../models/news_model.dart';
+import '../../models/user_model.dart';
+import '../../modules/news/news_view.dart';
 
-  News({
-    required this.title,
-    required this.imgURL,
-    required this.createdAt,
-  });
-}
-
-// Dummy data for the newsList
-List<News?> newsList = [
-  News(
-    title: 'Breaking News 1',
-    imgURL: 'https://dummyimage.com/1280x1000/2600fa/ffffff.png&text=example',
-    createdAt: DateTime.now().subtract(const Duration(days: 1)),
-  ),
-  News(
-    title: 'Latest Update 2',
-    imgURL: 'https://dummyimage.com/1280x1000/fc0037/ffffff.png&text=example',
-    createdAt: DateTime.now().subtract(const Duration(days: 2)),
-  ),
-  News(
-    title: 'Important Announcement 3',
-    imgURL: 'https://dummyimage.com/1280x1000/e9fa00/ffffff.png&text=example',
-    createdAt: DateTime.now().subtract(const Duration(days: 3)),
-  ),
-];
-
-List<Widget> sliderImage({
+List<Widget> sliderImages({
+  required List<NewsModel?> newsList,
+  required UserModel user,
   required BuildContext mainContext,
 }) =>
     newsList
@@ -43,16 +18,15 @@ List<Widget> sliderImage({
           (news) => ClipRRect(
             borderRadius: const BorderRadius.all(Radius.circular(5.0)),
             child: GestureDetector(
-              // onTap: () => Navigator.of(mainContext).push(
-              //   MaterialPageRoute(
-              //     builder: (context) => NewsView(
-              //       mainContext: mainContext,
-              //       news: news,
-              //       user: user,
-              //     ),
-              //   ),
-              // ),
-              onTap: () {},
+              onTap: () => Navigator.of(mainContext).push(
+                MaterialPageRoute(
+                  builder: (context) => NewsView(
+                    mainContext: mainContext,
+                    news: news,
+                    user: user,
+                  ),
+                ),
+              ),
               child: Stack(
                 children: <Widget>[
                   news!.imgURL == null
@@ -64,7 +38,7 @@ List<Widget> sliderImage({
                         )
                       : CachedNetworkImage(
                           imageUrl: news.imgURL!,
-                          fit: BoxFit.fitWidth,
+                          fit: BoxFit.cover,
                           height: 600,
                           placeholder: (context, url) => Shimmer.fromColors(
                             baseColor: CupertinoColors.systemGrey,

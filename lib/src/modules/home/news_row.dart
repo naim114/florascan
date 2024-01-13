@@ -1,6 +1,8 @@
 import 'package:florascan/src/widgets/carousel/carousel_news.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/news_model.dart';
+import '../../models/user_model.dart';
 import '../../services/helpers.dart';
 
 Widget newsRow({
@@ -8,6 +10,8 @@ Widget newsRow({
   required BuildContext mainContext,
   String title = "Read latest news",
   IconData icon = Icons.announcement,
+  required UserModel user,
+  required List<NewsModel> newsList,
 }) =>
     Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,6 +42,8 @@ Widget newsRow({
         ),
         CarouselNews(
           mainContext: mainContext,
+          newsList: newsList,
+          user: user,
         )
       ],
     );

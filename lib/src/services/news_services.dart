@@ -145,6 +145,22 @@ class NewsService {
     return res;
   }
 
+  Future<List<NewsModel>> getStarredNews() async {
+    try {
+      final List<NewsModel> allNews =
+          (await NewsService().getAll()).whereType<NewsModel>().toList();
+
+      final List<NewsModel> starredNews =
+          allNews.where((news) => news.starred == true).toList();
+
+      return starredNews;
+    } catch (e) {
+      print(e.toString());
+
+      return [];
+    }
+  }
+
   // get by id
   Future<NewsModel?> get(String id) {
     return _collectionRef.doc(id).get().then((DocumentSnapshot doc) {
