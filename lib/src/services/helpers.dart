@@ -19,6 +19,8 @@ class CustomColor {
   static const success = Color(0xFF47C272);
   static const darkerBg = Color(0xFF242526);
   static const darkBg = Color(0xFF3A3B3C);
+  static const primaryShade = Color(0xFFF0F5EC);
+  static const primaryDarkShade = Color(0xFF1C271C);
 }
 
 class CustomColorShades {
@@ -159,6 +161,8 @@ void openImageViewerDialog({
                 highlightColor: CupertinoColors.systemGrey2,
                 child: Container(
                   color: Colors.grey,
+                  height: 200,
+                  width: 200,
                 ),
               ),
               tightMode: true,

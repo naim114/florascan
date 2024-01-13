@@ -388,10 +388,16 @@ class _NewsEditorState extends State<NewsEditor> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: QuillToolbar.simple(
-                    configurations: QuillSimpleToolbarConfigurations(
-                      controller: widget.controller,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10.0,
+                    horizontal: 10,
+                  ),
+                  child: Card(
+                    elevation: 2,
+                    child: QuillToolbar.simple(
+                      configurations: QuillSimpleToolbarConfigurations(
+                        controller: widget.controller,
+                      ),
                     ),
                   ),
                 ),

@@ -70,6 +70,9 @@ class _MyAppState extends State<MyApp> {
                     displayColor: Colors.white,
                   ),
             ),
+            expansionTileTheme: const ExpansionTileThemeData(
+              backgroundColor: CustomColor.primaryDarkShade,
+            ),
             scaffoldBackgroundColor: CustomColor.darkerBg,
             appBarTheme: const AppBarTheme(
                 backgroundColor: CustomColor.darkerBg,
@@ -98,6 +101,9 @@ class _MyAppState extends State<MyApp> {
                     bodyColor: CustomColor.neutral1,
                     displayColor: CustomColor.neutral1,
                   ),
+            ),
+            expansionTileTheme: const ExpansionTileThemeData(
+              backgroundColor: CustomColor.primaryShade,
             ),
             scaffoldBackgroundColor: Colors.white,
             appBarTheme: const AppBarTheme(
