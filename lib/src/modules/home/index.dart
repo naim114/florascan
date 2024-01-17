@@ -69,8 +69,6 @@ class _HomeState extends State<Home> {
         child: Builder(builder: (context) {
           final List<NewsModel> starredNewsList =
               List<NewsModel>.from(allList[0]);
-          final List category = [];
-
           return ListView(
             children: [
               GestureDetector(
@@ -106,8 +104,8 @@ class _HomeState extends State<Home> {
                       newsList: starredNewsList,
                       user: widget.user!,
                     ),
-              infoCategorySection(context: context),
-              const SizedBox(height: 20),
+              infoCategorySection(mainContext: widget.mainContext),
+              const SizedBox(height: 25),
             ],
           );
         }),

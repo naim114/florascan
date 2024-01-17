@@ -1,5 +1,7 @@
-import 'package:florascan/src/widgets/image/image_viewer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../services/helpers.dart';
 import '../../widgets/card/card_info_content.dart';
@@ -7,10 +9,14 @@ import '../../widgets/card/card_info_content.dart';
 class DiseaseInfoMenu extends StatelessWidget {
   const DiseaseInfoMenu({
     super.key,
-    required this.title,
+    required this.name,
+    required this.imgURL,
+    required this.altName,
   });
 
-  final String title;
+  final String name;
+  final String imgURL;
+  final String altName;
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +46,23 @@ class DiseaseInfoMenu extends StatelessWidget {
             onTap: () => openImageViewerDialog(
               context: context,
               imageProvider: NetworkImage(
-                "https://dummyimage.com/1280x1000/2600fa/ffffff.png&text=example",
+                imgURL,
               ),
             ),
-            child: Image.asset(
-              'assets/images/noimage.png',
+            child: CachedNetworkImage(
+              imageUrl: imgURL,
               fit: BoxFit.cover,
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.3,
+              placeholder: (context, url) => Shimmer.fromColors(
+                baseColor: CupertinoColors.systemGrey,
+                highlightColor: CupertinoColors.systemGrey2,
+                child: Container(
+                  color: Colors.grey,
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.3,
+                ),
+              ),
             ),
           ),
           Padding(
@@ -57,7 +72,7 @@ class DiseaseInfoMenu extends StatelessWidget {
               top: 15,
             ),
             child: Text(
-              title,
+              name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: getColorByBackground(context),
@@ -71,7 +86,7 @@ class DiseaseInfoMenu extends StatelessWidget {
               right: 15,
             ),
             child: Text(
-              "Scientific Name",
+              altName,
               style: TextStyle(
                 color: getColorByBackground(context),
                 fontSize: 20,

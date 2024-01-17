@@ -1,14 +1,32 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
-Widget cardInfoImage() => Container(
+import '../../modules/info/menu.dart';
+
+Widget cardInfoImage({
+  required BuildContext mainContext,
+  required String name,
+  required String imgURL,
+  required String altName,
+}) =>
+    Container(
       decoration: BoxDecoration(
         color: CupertinoColors.systemGrey,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(8.0),
-        onTap: () {},
+        onTap: () => Navigator.of(mainContext).push(
+          MaterialPageRoute(
+            builder: (context) => DiseaseInfoMenu(
+              name: name,
+              imgURL: imgURL,
+              altName: altName,
+            ),
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -44,15 +62,23 @@ Widget cardInfoImage() => Container(
             //           ),
             //         ),
             //       ),
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(8.0),
-                topRight: Radius.circular(8.0),
-              ),
-              child: Image.asset(
-                'assets/images/noimage.png',
-                fit: BoxFit.cover,
-                width: double.infinity,
+            SizedBox(
+              height: MediaQuery.of(mainContext).size.height * 0.15,
+              width: double.infinity,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  topRight: Radius.circular(8.0),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: imgURL,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: CupertinoColors.systemGrey,
+                    highlightColor: CupertinoColors.systemGrey2,
+                    child: Container(color: Colors.grey),
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -65,7 +91,7 @@ Widget cardInfoImage() => Container(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Early Blight",
+                    name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
