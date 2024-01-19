@@ -3,7 +3,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../services/helpers.dart';
 
-Widget indicatorScaffold({
+Widget progressIndicatorScaffold({
   double size = 50,
   Color leftDotColor = CustomColor.primary,
   Color rightDotColor = CustomColor.secondary,

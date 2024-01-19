@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:florascan/src/models/plant_disease_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -9,14 +10,10 @@ import '../../widgets/card/card_info_content.dart';
 class DiseaseInfoMenu extends StatelessWidget {
   const DiseaseInfoMenu({
     super.key,
-    required this.name,
-    required this.imgURL,
-    required this.altName,
+    required this.disease,
   });
 
-  final String name;
-  final String imgURL;
-  final String altName;
+  final PlantDiseaseModel disease;
 
   @override
   Widget build(BuildContext context) {
@@ -43,27 +40,38 @@ class DiseaseInfoMenu extends StatelessWidget {
         children: [
           // Thumbnail
           GestureDetector(
-            onTap: () => openImageViewerDialog(
-              context: context,
-              imageProvider: NetworkImage(
-                imgURL,
-              ),
-            ),
-            child: CachedNetworkImage(
-              imageUrl: imgURL,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.3,
-              placeholder: (context, url) => Shimmer.fromColors(
-                baseColor: CupertinoColors.systemGrey,
-                highlightColor: CupertinoColors.systemGrey2,
-                child: Container(
-                  color: Colors.grey,
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                ),
-              ),
-            ),
+            onTap: () {
+              if (disease.imgURL != null) {
+                openImageViewerDialog(
+                  context: context,
+                  imageProvider: NetworkImage(
+                    disease.imgURL!,
+                  ),
+                );
+              }
+            },
+            child: disease.imgURL == null
+                ? Image.asset(
+                    'assets/images/noimage.png',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.3,
+                  )
+                : CachedNetworkImage(
+                    imageUrl: disease.imgURL!,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: CupertinoColors.systemGrey,
+                      highlightColor: CupertinoColors.systemGrey2,
+                      child: Container(
+                        color: Colors.grey,
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height * 0.3,
+                      ),
+                    ),
+                  ),
           ),
           Padding(
             padding: const EdgeInsets.only(
@@ -72,7 +80,7 @@ class DiseaseInfoMenu extends StatelessWidget {
               top: 15,
             ),
             child: Text(
-              name,
+              disease.name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: getColorByBackground(context),
@@ -80,19 +88,21 @@ class DiseaseInfoMenu extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 15,
-              right: 15,
-            ),
-            child: Text(
-              altName,
-              style: TextStyle(
-                color: getColorByBackground(context),
-                fontSize: 20,
-              ),
-            ),
-          ),
+          disease.altName == null
+              ? const SizedBox()
+              : Padding(
+                  padding: const EdgeInsets.only(
+                    left: 15,
+                    right: 15,
+                  ),
+                  child: Text(
+                    disease.altName!,
+                    style: TextStyle(
+                      color: getColorByBackground(context),
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
           // Disease Overview
           const Padding(
             padding: EdgeInsets.only(

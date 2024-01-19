@@ -18,15 +18,15 @@ Widget cardInfoImage({
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(8.0),
-        onTap: () => Navigator.of(mainContext).push(
-          MaterialPageRoute(
-            builder: (context) => DiseaseInfoMenu(
-              name: name,
-              imgURL: imgURL,
-              altName: altName,
-            ),
-          ),
-        ),
+        // onTap: () => Navigator.of(mainContext).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => DiseaseInfoMenu(
+        //       name: name,
+        //       imgURL: imgURL,
+        //       altName: altName,
+        //     ),
+        //   ),
+        // ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

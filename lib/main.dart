@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
       child: ThemeModeHandler(
         manager: MyThemeModeManager(),
         placeholderWidget: MaterialApp(
-          home: indicatorScaffold(backgroundColor: Colors.white),
+          home: progressIndicatorScaffold(backgroundColor: Colors.white),
         ),
         builder: (ThemeMode themeMode) => MaterialApp(
           themeMode: themeMode,
