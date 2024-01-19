@@ -1,11 +1,14 @@
+import 'package:florascan/src/models/plant_disease_model.dart';
 import 'package:florascan/src/modules/home/info_category_section.dart';
 import 'package:florascan/src/modules/home/news_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/news_model.dart';
+import '../../models/plant_model.dart';
 import '../../models/user_model.dart';
 import '../../services/news_services.dart';
+import '../../services/plant_services.dart';
 
 class Home extends StatefulWidget {
   const Home({
@@ -29,7 +32,7 @@ class _HomeState extends State<Home> {
 
   List<List<Object>> allList = [
     [], // news
-    [], // category
+    [], // diseases
   ];
 
   bool loading = true;
@@ -37,12 +40,24 @@ class _HomeState extends State<Home> {
   Future<void> _refreshData() async {
     // news
     List<NewsModel> newsList = await NewsService().getStarredNews();
+    List<PlantModel> plants = (await PlantServices().getAll())
+        .where((plant) => plant != null)
+        .cast<PlantModel>()
+        .toList();
+
+    List<PlantDiseaseModel> diseases = [];
+
+    for (var plant in plants) {
+      if (plant.disease != null) {
+        diseases.addAll(plant.disease!);
+      }
+    }
 
     setState(() {
       loading = false;
       allList = [
         newsList, // news
-        [], // category
+        diseases, // diseases
       ];
     });
 
@@ -69,6 +84,8 @@ class _HomeState extends State<Home> {
         child: Builder(builder: (context) {
           final List<NewsModel> starredNewsList =
               List<NewsModel>.from(allList[0]);
+          final List<PlantDiseaseModel> diseases =
+              List<PlantDiseaseModel>.from(allList[1]);
           return ListView(
             children: [
               GestureDetector(
@@ -104,7 +121,8 @@ class _HomeState extends State<Home> {
                       newsList: starredNewsList,
                       user: widget.user!,
                     ),
-              infoCategorySection(mainContext: widget.mainContext),
+              infoCategorySection(
+                  mainContext: widget.mainContext, diseases: diseases),
               const SizedBox(height: 25),
             ],
           );
