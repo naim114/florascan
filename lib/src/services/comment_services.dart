@@ -16,6 +16,12 @@ class CommentServices {
   // convert DocumentSnapshot to model object
   Future<CommentModel?> fromDocumentSnapshot(
       DocumentSnapshot<Object?> doc) async {
+    String? id = doc.get('id');
+
+    if (id == null) {
+      return null;
+    }
+
     return CommentModel(
       id: doc.get('id'),
       news: await NewsService().get(doc.get('news')),
@@ -28,6 +34,12 @@ class CommentServices {
   // convert QueryDocumentSnapshot to model object
   Future<CommentModel?> fromQueryDocumentSnapshot(
       QueryDocumentSnapshot<Object?> doc) async {
+    String? id = doc.get('id');
+
+    if (id == null) {
+      return null;
+    }
+
     return CommentModel(
       id: doc.get('id'),
       news: await NewsService().get(doc.get('news')),
@@ -81,7 +93,11 @@ class CommentServices {
   }) async {
     try {
       dynamic add = await _collectionRef.add({
-        'createdAt': DateTime.now(),
+        'id': null,
+        'news': null,
+        'text': null,
+        'author': null,
+        'createdAt': null,
       }).then((docRef) async {
         _collectionRef
             .doc(docRef.id)

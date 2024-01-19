@@ -27,6 +27,12 @@ class NewsService {
 
   // convert DocumentSnapshot to model object
   Future<NewsModel?> fromDocumentSnapshot(DocumentSnapshot<Object?> doc) async {
+    String? id = doc.get('id');
+
+    if (id == null) {
+      return null;
+    }
+
     return NewsModel(
       id: doc.get('id'),
       title: doc.get('title'),
@@ -55,6 +61,12 @@ class NewsService {
   // convert QueryDocumentSnapshot to model object
   Future<NewsModel?> fromQueryDocumentSnapshot(
       QueryDocumentSnapshot<Object?> doc) async {
+    String? id = doc.get('id');
+
+    if (id == null) {
+      return null;
+    }
+
     return NewsModel(
       id: doc.get('id'),
       title: doc.get('title'),
@@ -82,6 +94,12 @@ class NewsService {
 
   // convert map to model object
   Future<NewsModel?> fromMap(Map<String, dynamic> map) async {
+    String? id = map['id'];
+
+    if (id == null) {
+      return null;
+    }
+
     return NewsModel(
       id: map['id'],
       title: map['title'],
@@ -270,8 +288,19 @@ class NewsService {
   }) async {
     try {
       dynamic add = await _collectionRef.add({
-        'createdAt': DateTime.now(),
-        'updatedAt': DateTime.now(),
+        'id': null,
+        'title': null,
+        'author': null,
+        'jsonContent': null,
+        'likedBy': null,
+        'createdAt': null,
+        'updatedAt': null,
+        'imgPath': null,
+        'imgURL': null,
+        'thumbnailDescription': null,
+        'description': null,
+        'category': null,
+        'tag': null,
       }).then((docRef) async {
         if (imageFile != null) {
           print("Thumbnail included");
