@@ -19,6 +19,13 @@ class PlantDiseaseGalleryModel {
     );
   }
 
+  factory PlantDiseaseGalleryModel.fromJson(Map<String, Object?> map) {
+    return PlantDiseaseGalleryModel(
+      imgPath: map['imgPath'] as String,
+      imgURL: map['imgURL'] as String,
+    );
+  }
+
   Map<String, Object?> toJson() {
     return {
       'imgPath': imgPath,

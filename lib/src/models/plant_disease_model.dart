@@ -10,6 +10,7 @@ class PlantDiseaseModel {
   final String? jsonContent;
   final DateTime updatedAt;
   final DateTime createdAt;
+  final List<PlantDiseaseGalleryModel>? gallery;
 
   PlantDiseaseModel({
     required this.altName,
@@ -21,14 +22,23 @@ class PlantDiseaseModel {
     required this.jsonContent,
     required this.name,
     required this.updatedAt,
+    required this.gallery,
   });
 
   @override
   String toString() {
-    return 'PlantCategoryModel(altName: $altName, createdAt: $createdAt, description: $description, id: $id, imgPath: $imgPath, imgURL: $imgURL, jsonContent: $jsonContent, name: $name, updatedAt: $updatedAt)';
+    return 'PlantCategoryModel(altName: $altName, createdAt: $createdAt, description: $description, id: $id, imgPath: $imgPath, imgURL: $imgURL, jsonContent: $jsonContent, name: $name, updatedAt: $updatedAt, gallery: ${gallery == null ? 'null' : gallery!.length})';
   }
 
   factory PlantDiseaseModel.fromMap(Map<String, dynamic> map) {
+    List<PlantDiseaseGalleryModel>? gallery;
+
+    if (map['gallery'] != null) {
+      gallery = (map['gallery'] as List<dynamic>).map((json) {
+        return PlantDiseaseGalleryModel.fromJson(json as Map<String, dynamic>);
+      }).toList();
+    }
+
     return PlantDiseaseModel(
       id: map['id'],
       name: map['name'],
@@ -39,6 +49,7 @@ class PlantDiseaseModel {
       updatedAt: map['updatedAt'].toDate(),
       createdAt: map['createdAt'].toDate(),
       jsonContent: map['jsonContent'] ?? '',
+      gallery: gallery,
     );
   }
 }
