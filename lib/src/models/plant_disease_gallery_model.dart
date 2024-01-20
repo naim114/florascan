@@ -12,10 +12,10 @@ class PlantDiseaseGalleryModel {
     return 'PlantCategoryGalleryModel(imgPath: $imgPath, imgURL: $imgURL)';
   }
 
-  factory PlantDiseaseGalleryModel.fromJson(Map<String, dynamic> map) {
+  factory PlantDiseaseGalleryModel.fromMap(Map<String, dynamic> map) {
     return PlantDiseaseGalleryModel(
-      imgPath: map['imgPath'] ?? '',
-      imgURL: map['imgURL'] ?? '',
+      imgPath: map['imgPath'],
+      imgURL: map['imgURL'],
     );
   }
 

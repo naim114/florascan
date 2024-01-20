@@ -10,7 +10,6 @@ class PlantDiseaseModel {
   final String? jsonContent;
   final DateTime updatedAt;
   final DateTime createdAt;
-  final List<PlantDiseaseGalleryModel>? gallery;
 
   PlantDiseaseModel({
     required this.altName,
@@ -22,28 +21,24 @@ class PlantDiseaseModel {
     required this.jsonContent,
     required this.name,
     required this.updatedAt,
-    required this.gallery,
   });
 
   @override
   String toString() {
-    return 'PlantCategoryModel(altName: $altName, createdAt: $createdAt, description: $description, id: $id, imgPath: $imgPath, imgURL: $imgURL, jsonContent: $jsonContent, name: $name, updatedAt: $updatedAt, gallery: ${gallery == null ? 'empty' : gallery?.length})';
+    return 'PlantCategoryModel(altName: $altName, createdAt: $createdAt, description: $description, id: $id, imgPath: $imgPath, imgURL: $imgURL, jsonContent: $jsonContent, name: $name, updatedAt: $updatedAt)';
   }
 
   factory PlantDiseaseModel.fromMap(Map<String, dynamic> map) {
     return PlantDiseaseModel(
-      id: map['id'] ?? '',
-      name: map['name'] ?? '',
-      altName: map['altName'] ?? '',
-      description: map['description'] ?? '',
-      imgPath: map['imgPath'] ?? '',
-      imgURL: map['imgURL'] ?? '',
+      id: map['id'],
+      name: map['name'],
+      altName: map['altName'],
+      description: map['description'],
+      imgPath: map['imgPath'],
+      imgURL: map['imgURL'],
       updatedAt: map['updatedAt'].toDate(),
       createdAt: map['createdAt'].toDate(),
       jsonContent: map['jsonContent'] ?? '',
-      gallery: (map['gallery'] as List<dynamic>?)
-          ?.map((item) => PlantDiseaseGalleryModel.fromJson(item))
-          .toList(),
     );
   }
 }

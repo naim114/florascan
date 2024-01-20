@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:florascan/src/models/plant_model.dart';
 
+import '../models/plant_disease_gallery_model.dart';
 import '../models/plant_disease_model.dart';
 
 class PlantServices {
@@ -26,10 +27,14 @@ class PlantServices {
     List<PlantDiseaseModel> diseaseList = [];
 
     if (diseaseSnapshot.docs.isNotEmpty) {
-      diseaseList = diseaseSnapshot.docs
-          .map((diseaseDoc) => PlantDiseaseModel.fromMap(
-              diseaseDoc.data() as Map<String, dynamic>))
-          .toList();
+      diseaseList = await Future.wait(
+        diseaseSnapshot.docs.map(
+          (diseaseDoc) async {
+            return PlantDiseaseModel.fromMap(
+                diseaseDoc.data() as Map<String, dynamic>);
+          },
+        ),
+      );
     }
 
     return PlantModel(
