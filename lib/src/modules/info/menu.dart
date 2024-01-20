@@ -130,89 +130,166 @@ class DiseaseInfoMenu extends StatelessWidget {
                   child: Text(disease.description!),
                 ),
           // Gallery
-          // FutureBuilder<List<PlantDiseaseGalleryModel>>(
-          //   future: PlantServices().getDiseaseGallery(disease.id),
-          //   builder: (context, snapshot) {
-          //     if (snapshot.connectionState == ConnectionState.waiting) {
-          //       return const Center(child: CircularProgressIndicator());
-          //     }
-
-          //     print(
-          //         "////////////////////// ${snapshot.data} /////////////////////");
-
-          //     if (snapshot.data == null || snapshot.data!.isEmpty) {
-          //       return const SizedBox();
-          //     }
-
-          //     List<PlantDiseaseGalleryModel> gallery = snapshot.data!;
-
-          //     print("//////////////////////");
-          //     print(gallery);
-          //     print("//////////////////////");
-
-          //     return Column(
-          //       children: [
-          //         const Padding(
-          //           padding: EdgeInsets.only(
-          //             // top: 15.0,
-          //             left: 15,
-          //             right: 15,
-          //             bottom: 20,
-          //           ),
-          //           child: Text(
-          //             "Gallery 🖼️",
-          //             style: TextStyle(
-          //               fontWeight: FontWeight.bold,
-          //               fontSize: 20,
-          //             ),
-          //           ),
-          //         ),
-          //         Padding(
-          //           padding: const EdgeInsets.only(bottom: 20),
-          //           child: SingleChildScrollView(
-          //             scrollDirection: Axis.horizontal,
-          //             child: Row(
-          //               children: [
-          //                 const SizedBox(width: 10),
-          //                 Row(
-          //                   children: List.generate(
-          //                     3,
-          //                     (index) => Padding(
-          //                       padding:
-          //                           const EdgeInsets.symmetric(horizontal: 5.0),
-          //                       child: GestureDetector(
-          //                         onTap: () => openImageViewerDialog(
-          //                           context: context,
-          //                           imageProvider: const NetworkImage(
-          //                             "https://dummyimage.com/1280x1000/2600fa/ffffff.png&text=example",
-          //                           ),
+          disease.gallery == null
+              ? const SizedBox()
+              : const Padding(
+                  padding: EdgeInsets.only(
+                    // top: 15.0,
+                    left: 15,
+                    right: 15,
+                    bottom: 20,
+                  ),
+                  child: Text(
+                    "Gallery 🖼️",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+          disease.gallery == null
+              ? const SizedBox()
+              : Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 10),
+                        Row(
+                          children: disease.gallery!
+                              .map(
+                                (img) => Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  child: GestureDetector(
+                                    onTap: () => openImageViewerDialog(
+                                      context: context,
+                                      imageProvider: NetworkImage(
+                                        img.imgURL,
+                                      ),
+                                    ),
+                                    // child: ClipRRect(
+                                    //   borderRadius: BorderRadius.circular(10.0),
+                                    //   child: Image.asset(
+                                    //     'assets/images/noimage.png',
+                                    //     fit: BoxFit.cover,
+                                    //     height: MediaQuery.of(context).size.height *
+                                    //         0.2,
+                                    //     width: MediaQuery.of(context).size.height *
+                                    //         0.2,
+                                    //   ),
+                                    // ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: CachedNetworkImage(
+                                        imageUrl: img.imgURL,
+                                        fit: BoxFit.cover,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
+                                        width:
+                                            MediaQuery.of(context).size.height *
+                                                0.2,
+                                        placeholder: (context, url) =>
+                                            Shimmer.fromColors(
+                                          baseColor: CupertinoColors.systemGrey,
+                                          highlightColor:
+                                              CupertinoColors.systemGrey2,
+                                          child: Container(
+                                            color: Colors.grey,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.2,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.2,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                        // Row(
+                        //   children: List.generate(
+                        //     3,
+                        //     (index) => Padding(
+                        //       padding:
+                        //           const EdgeInsets.symmetric(horizontal: 5.0),
+                        //       child: GestureDetector(
+                        //         onTap: () => openImageViewerDialog(
+                        //           context: context,
+                        //           imageProvider: const NetworkImage(
+                        //             "https://dummyimage.com/1280x1000/2600fa/ffffff.png&text=example",
+                        //           ),
+                        //         ),
+                        //         child: ClipRRect(
+                        //           borderRadius: BorderRadius.circular(10.0),
+                        //           child: Image.asset(
+                        //             'assets/images/noimage.png',
+                        //             fit: BoxFit.cover,
+                        //             height: MediaQuery.of(context).size.height *
+                        //                 0.2,
+                        //             width: MediaQuery.of(context).size.height *
+                        //                 0.2,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        const SizedBox(width: 10),
+                      ],
+                    ),
+                  ),
+                ),
+          // disease.gallery == null
+          //     ? const SizedBox()
+          //     : Padding(
+          //         padding: const EdgeInsets.only(bottom: 20),
+          //         child: SingleChildScrollView(
+          //           scrollDirection: Axis.horizontal,
+          //           child: Row(
+          //             children: [
+          //               const SizedBox(width: 10),
+          //               Row(
+          //                 children: List.generate(
+          //                   3,
+          //                   (index) => Padding(
+          //                     padding:
+          //                         const EdgeInsets.symmetric(horizontal: 5.0),
+          //                     child: GestureDetector(
+          //                       onTap: () => openImageViewerDialog(
+          //                         context: context,
+          //                         imageProvider: const NetworkImage(
+          //                           "https://dummyimage.com/1280x1000/2600fa/ffffff.png&text=example",
           //                         ),
-          //                         child: ClipRRect(
-          //                           borderRadius: BorderRadius.circular(10.0),
-          //                           child: Image.asset(
-          //                             'assets/images/noimage.png',
-          //                             fit: BoxFit.cover,
-          //                             height:
-          //                                 MediaQuery.of(context).size.height *
-          //                                     0.2,
-          //                             width:
-          //                                 MediaQuery.of(context).size.height *
-          //                                     0.2,
-          //                           ),
+          //                       ),
+          //                       child: ClipRRect(
+          //                         borderRadius: BorderRadius.circular(10.0),
+          //                         child: Image.asset(
+          //                           'assets/images/noimage.png',
+          //                           fit: BoxFit.cover,
+          //                           height: MediaQuery.of(context).size.height *
+          //                               0.2,
+          //                           width: MediaQuery.of(context).size.height *
+          //                               0.2,
           //                         ),
           //                       ),
           //                     ),
           //                   ),
           //                 ),
-          //                 const SizedBox(width: 10),
-          //               ],
-          //             ),
+          //               ),
+          //               const SizedBox(width: 10),
+          //             ],
           //           ),
           //         ),
-          //       ],
-          //     );
-          //   },
-          // ),
+          //       ),
           // Info Content
           cardInfoContent(),
           cardInfoContent(),
