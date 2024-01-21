@@ -224,6 +224,7 @@ class DiseaseInfoMenu extends StatelessWidget {
             padding: const EdgeInsets.only(
               left: 15,
               right: 15,
+              bottom: 20,
             ),
             child: QuillEditor(
               configurations: QuillEditorConfigurations(

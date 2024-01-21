@@ -92,6 +92,7 @@ class _HomeState extends State<Home> {
               List<NewsModel>.from(allList[0]);
           final List<PlantDiseaseModel> diseases =
               List<PlantDiseaseModel>.from(allList[1]);
+
           return ListView(
             children: [
               GestureDetector(

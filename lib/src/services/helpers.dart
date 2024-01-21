@@ -18,7 +18,8 @@ class CustomColor {
   static const danger = Color(0xFFFE4A49);
   static const success = Color(0xFF47C272);
   static const darkerBg = Color(0xFF242526);
-  static const darkBg = Color(0xFF222727);
+  static const darkBg = Color(0xFF3A3B3C);
+  static const bg = Color(0xFF3A3B3C);
   static const primaryShade = Color(0xFFF0F5EC);
   static const primaryDarkShade = Color(0xFF1C271C);
 }
@@ -50,7 +51,7 @@ Color getColorByBackground(context) {
 }
 
 Color getBgColorByBackground(context) {
-  return isDarkTheme(context) ? CustomColor.darkBg : Colors.white;
+  return isDarkTheme(context) ? CustomColor.bg : Colors.white;
 }
 
 void selectThemeMode(BuildContext context) async {
