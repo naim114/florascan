@@ -1,3 +1,4 @@
+import 'package:florascan/src/modules/admin/plant/index.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -57,6 +58,16 @@ class AdminPanel extends StatelessWidget {
                   currentUser: currentUser,
                   pushTo: 'AdminPanelNews',
                 ),
+              ),
+            ),
+          ),
+          listTileIcon(
+            context: context,
+            icon: Icons.info,
+            title: "Plant Disease Info",
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const AdminPanelPlant(),
               ),
             ),
           ),

@@ -10,7 +10,7 @@ class PlantModel {
   final String? imgURL;
   final DateTime updatedAt;
   final DateTime createdAt;
-  final List<PlantDiseaseModel>? disease;
+  final List<PlantDiseaseModel>? diseases;
 
   PlantModel({
     required this.id,
@@ -21,12 +21,12 @@ class PlantModel {
     required this.imgURL,
     required this.updatedAt,
     required this.createdAt,
-    required this.disease,
+    required this.diseases,
   });
 
   @override
   String toString() {
-    return 'PlantModel(id: $id, name: $name, altName: $altName, description: $description, imgPath: $imgPath, imgURL: $imgURL, updatedAt: $updatedAt, createdAt: $createdAt, disease: $disease)';
+    return 'PlantModel(id: $id, name: $name, altName: $altName, description: $description, imgPath: $imgPath, imgURL: $imgURL, updatedAt: $updatedAt, createdAt: $createdAt, disease: $diseases)';
   }
 
   factory PlantModel.fromDocumentSnapshot(DocumentSnapshot<Object?> doc) {
@@ -42,7 +42,7 @@ class PlantModel {
         imgURL: '',
         updatedAt: DateTime.now(),
         createdAt: DateTime.now(),
-        disease: [],
+        diseases: [],
       );
     }
 
@@ -55,7 +55,7 @@ class PlantModel {
       imgURL: doc.get('imgURL') ?? '',
       updatedAt: doc.get('updatedAt').toDate(),
       createdAt: doc.get('createdAt').toDate(),
-      disease: (doc.get('category') as List<dynamic>?)
+      diseases: (doc.get('category') as List<dynamic>?)
           ?.map((item) => PlantDiseaseModel.fromMap(item))
           .toList(),
     );

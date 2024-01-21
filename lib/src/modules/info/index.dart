@@ -98,8 +98,8 @@ class Info extends StatelessWidget {
                 child: Column(
                   children: plants.where((plant) => plant != null).expand(
                     (plant) {
-                      if (plant!.disease != null) {
-                        List<PlantDiseaseModel> diseases = plant.disease!;
+                      if (plant!.diseases != null) {
+                        List<PlantDiseaseModel> diseases = plant.diseases!;
 
                         return diseases
                             .map<Widget>(

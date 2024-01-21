@@ -48,8 +48,8 @@ class _HomeState extends State<Home> {
     List<PlantDiseaseModel> diseases = [];
 
     for (var plant in plants) {
-      if (plant.disease != null) {
-        diseases.addAll(plant.disease!);
+      if (plant.diseases != null) {
+        diseases.addAll(plant.diseases!);
       }
     }
 

@@ -46,7 +46,7 @@ class PlantServices {
       imgURL: doc.get('imgURL'),
       updatedAt: doc.get('updatedAt').toDate(),
       createdAt: doc.get('createdAt').toDate(),
-      disease: diseaseList,
+      diseases: diseaseList,
     );
   }
 
