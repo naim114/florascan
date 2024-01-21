@@ -52,7 +52,7 @@ class _ContentEditorState extends State<ContentEditor> {
         children: [
           ExpansionTile(
             title: const Text(
-              "Editor Toolbar (Tap to Hide)",
+              "Editor Toolbar",
               style: TextStyle(
                 // fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
