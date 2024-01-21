@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../models/user_model.dart';
 import '../../services/helpers.dart';
 import '../account/index.dart';
+import '../diagnos/index.dart';
 import '../info/index.dart';
 
 class FrontFrame extends StatefulWidget {
@@ -96,9 +97,10 @@ class _FrontFrameState extends State<FrontFrame> {
             mainContext: context,
             scaffoldKey: _scaffoldKey,
             user: user,
+            onStart: () => _controller.jumpToTab(2),
           ),
           Info(mainContext: context),
-          Placeholder(),
+          Diagnosis(mainContext: context),
           IndexNews(mainContext: context, user: user),
           Account(mainContext: context, user: user),
         ],

@@ -18,7 +18,7 @@ class Info extends StatelessWidget {
       future: PlantServices().getAll(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return progressIndicatorScaffold();
+          return progressIndicatorScaffold(context: context);
         }
 
         List<PlantModel?>? plants = snapshot.data;

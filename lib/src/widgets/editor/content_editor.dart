@@ -67,6 +67,14 @@ class _ContentEditorState extends State<ContentEditor> {
               ),
             ],
           ),
+          const Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 15,
+              vertical: 5,
+            ),
+            child: Text(
+                "Tap on editor toolbar to hide. You can write your content below."),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 15,

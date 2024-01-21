@@ -212,7 +212,7 @@ class _AccountState extends State<Account> {
                   );
                 }
 
-                return progressIndicatorScaffold();
+                return progressIndicatorScaffold(context: context);
               },
             ),
           );

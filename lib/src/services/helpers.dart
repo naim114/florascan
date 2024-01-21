@@ -18,7 +18,7 @@ class CustomColor {
   static const danger = Color(0xFFFE4A49);
   static const success = Color(0xFF47C272);
   static const darkerBg = Color(0xFF242526);
-  static const darkBg = Color(0xFF3A3B3C);
+  static const darkBg = Color(0xFF222727);
   static const primaryShade = Color(0xFFF0F5EC);
   static const primaryDarkShade = Color(0xFF1C271C);
 }
@@ -47,6 +47,10 @@ bool isDarkTheme(context) {
 
 Color getColorByBackground(context) {
   return isDarkTheme(context) ? Colors.white : CustomColor.neutral1;
+}
+
+Color getBgColorByBackground(context) {
+  return isDarkTheme(context) ? CustomColor.darkBg : Colors.white;
 }
 
 void selectThemeMode(BuildContext context) async {

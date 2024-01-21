@@ -16,11 +16,13 @@ class Home extends StatefulWidget {
     required this.mainContext,
     required this.scaffoldKey,
     required this.user,
+    required this.onStart,
   }) : super(key: key);
 
   final BuildContext mainContext;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final UserModel? user;
+  final void Function()? onStart;
 
   @override
   State<Home> createState() => _HomeState();
@@ -76,7 +78,11 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Placeholder(),
+        title: Image.asset(
+          'assets/images/logo.png',
+          fit: BoxFit.contain,
+          height: MediaQuery.of(context).size.height * 0.06,
+        ),
       ),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
@@ -89,7 +95,7 @@ class _HomeState extends State<Home> {
           return ListView(
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: widget.onStart,
                 child: const Padding(
                   padding: EdgeInsets.only(
                     left: 8,
