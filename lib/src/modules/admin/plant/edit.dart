@@ -112,7 +112,29 @@ class _PlantEditState extends State<PlantEdit> {
                           builder: (context) => ImageUploader(
                             appBarTitle: "Upload New Image",
                             onCancel: () => Navigator.of(context).pop(),
-                            onConfirm: (imageFile, uploaderContext) async {},
+                            onConfirm: (imageFile, uploaderContext) async {
+                              print("Image file: ${imageFile.toString()}");
+
+                              Fluttertoast.showToast(
+                                  msg: "Uploading new thumbnail. Please wait.");
+
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+
+                              final result =
+                                  await PlantServices().uploadPlantThumbnail(
+                                imageFile: imageFile,
+                                plant: widget.plant,
+                              );
+
+                              print("Update Thumbnail: ${result.toString()}");
+
+                              if (result == true) {
+                                Fluttertoast.showToast(
+                                    msg:
+                                        "Thumbnail Updated. Please refresh to see changes.");
+                              }
+                            },
                           ),
                         ),
                       ),
