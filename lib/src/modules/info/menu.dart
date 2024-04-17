@@ -8,7 +8,6 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../services/helpers.dart';
-import '../../widgets/card/card_info_content.dart';
 
 class DiseaseInfoMenu extends StatelessWidget {
   const DiseaseInfoMenu({

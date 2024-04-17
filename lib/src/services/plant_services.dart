@@ -81,7 +81,7 @@ class PlantServices {
     try {
       // w/ image
       if (imageFile != null) {
-// if previous image exist
+        // if previous image exist
         if (plant.imgPath != null && plant.imgURL != null) {
           print("Previous file exist");
 
@@ -169,6 +169,35 @@ class PlantServices {
     } catch (e) {
       print(e.toString());
       Fluttertoast.showToast(msg: e.toString());
+
+      return false;
+    }
+  }
+
+  Future editDiseaseDetail({
+    required PlantModel plant,
+    required PlantDiseaseModel disease,
+    required String name,
+    required String altName,
+    required String description,
+  }) async {
+    try {
+      // Update disease details in Firestore
+      await _collectionRef // Collection representing PlantModel
+          .doc(plant.id)
+          .collection('Disease') // Subcollection containing diseases
+          .doc(disease.id)
+          .update({
+        'name': name,
+        'altName': altName,
+        'description': description,
+      });
+
+      print('Disease details updated successfully');
+
+      return true;
+    } catch (e) {
+      print('Error updating disease details: $e');
 
       return false;
     }

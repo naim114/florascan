@@ -257,6 +257,7 @@ class _PlantEditState extends State<PlantEdit> {
                                 MaterialPageRoute(
                                   builder: (context) => PlantDiseaseEdit(
                                     disease: widget.plant.diseases![index],
+                                    plant: widget.plant,
                                   ),
                                 ),
                               ),

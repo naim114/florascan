@@ -1,20 +1,28 @@
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:florascan/src/services/plant_services.dart';
 import 'package:florascan/src/widgets/editor/content_editor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../models/plant_disease_model.dart';
+import '../../../models/plant_model.dart';
 import '../../../services/helpers.dart';
 import '../../../widgets/editor/image_uploader.dart';
 
 class PlantDiseaseEdit extends StatefulWidget {
-  const PlantDiseaseEdit({super.key, required this.disease});
+  const PlantDiseaseEdit({
+    super.key,
+    required this.disease,
+    required this.plant,
+  });
 
   final PlantDiseaseModel disease;
+  final PlantModel plant;
 
   @override
   State<PlantDiseaseEdit> createState() => _PlantDiseaseEditState();
@@ -59,7 +67,20 @@ class _PlantDiseaseEditState extends State<PlantDiseaseEdit> {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              dynamic result = await PlantServices().editDiseaseDetail(
+                plant: widget.plant,
+                disease: widget.disease,
+                name: nameController.text,
+                altName: altNameController.text,
+                description: descriptionController.text,
+              );
+
+              if (result == true && context.mounted) {
+                Fluttertoast.showToast(msg: "Details sucessfully updated.");
+                Navigator.of(context).pop();
+              }
+            },
             icon: const Icon(
               Icons.check_outlined,
               color: CustomColor.primary,
