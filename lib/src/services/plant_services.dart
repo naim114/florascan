@@ -202,4 +202,92 @@ class PlantServices {
 
     print("Update Plant: $result");
   }
+
+  Future uploadDiseaseThumbnail({
+    required File imageFile,
+    required PlantModel plant,
+    required PlantDiseaseModel disease,
+  }) async {
+    try {
+      // If previous image exists
+      if (disease.imgPath != null && disease.imgURL != null) {
+        print("Previous file exists");
+
+        // Delete previous file
+        final Reference ref = _firebaseStorage.ref().child(disease.imgPath!);
+        await ref.delete();
+
+        print("Previous file deleted");
+      }
+
+      // UPLOAD TO FIREBASE STORAGE
+      // Get file extension
+      String extension = path.extension(imageFile.path);
+      print("Extension: $extension");
+
+      // Create the file metadata
+      final metadata = SettableMetadata(contentType: "image/jpeg");
+
+      // Create a reference to the file path in Firebase Storage
+      final storageRef = _firebaseStorage.ref().child(
+          'plants/${plant.id}/diseases/${disease.id}/${disease.id}$extension');
+
+      // Upload the file to Firebase Storage
+      final uploadTask = storageRef.putFile(imageFile, metadata);
+
+      uploadTask.snapshotEvents.listen((TaskSnapshot taskSnapshot) {
+        switch (taskSnapshot.state) {
+          case TaskState.running:
+            final progress = 100.0 *
+                (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes);
+            print("Upload is $progress% complete.");
+            break;
+          case TaskState.paused:
+            print("Upload is paused.");
+            break;
+          case TaskState.canceled:
+            print("Upload was canceled");
+            break;
+          case TaskState.error:
+            // Handle unsuccessful uploads
+            print("Upload encountered an error");
+            throw Exception();
+          case TaskState.success:
+            // Handle successful uploads on complete
+            print("Disease image uploaded");
+            break;
+        }
+      });
+
+      // Get the download URL of the uploaded file
+      final downloadUrl =
+          await uploadTask.then((TaskSnapshot taskSnapshot) async {
+        final url = await taskSnapshot.ref.getDownloadURL();
+        return url;
+      });
+
+      print("URL: $downloadUrl");
+
+      // UPDATE ON FIRESTORE
+      await _collectionRef
+          .doc(plant.id)
+          .collection('Disease')
+          .doc(disease.id)
+          .update({
+        'updatedAt': DateTime.now(),
+        'imgPath':
+            'plants/${plant.id}/diseases/${disease.id}/${disease.id}$extension',
+        'imgURL': downloadUrl,
+      });
+
+      print("Disease thumbnail uploaded and updated");
+
+      return true;
+    } catch (e) {
+      print("Error uploading disease thumbnail: $e");
+      // Handle error
+
+      return false;
+    }
+  }
 }
