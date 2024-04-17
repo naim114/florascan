@@ -104,6 +104,7 @@ class PlantServices {
     required String name,
     required String altName,
     required String description,
+    required String jsonContent,
   }) async {
     try {
       // Update disease details in Firestore
@@ -115,6 +116,7 @@ class PlantServices {
         'name': name,
         'altName': altName,
         'description': description,
+        'jsonContent': jsonContent,
       });
 
       print('Disease details updated successfully');

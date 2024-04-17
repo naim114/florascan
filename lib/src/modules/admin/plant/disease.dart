@@ -29,6 +29,8 @@ class PlantDiseaseEdit extends StatefulWidget {
 }
 
 class _PlantDiseaseEditState extends State<PlantDiseaseEdit> {
+  QuillController? controller;
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController altNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -56,7 +58,7 @@ class _PlantDiseaseEditState extends State<PlantDiseaseEdit> {
             widget.disease.jsonContent!.isNotEmpty)
         ? jsonDecode(widget.disease.jsonContent!)
         : null;
-    final controller = QuillController(
+    controller ??= QuillController(
       document: (content != null) ? Document.fromJson(content) : Document(),
       selection: const TextSelection.collapsed(offset: 0),
     );
@@ -74,6 +76,8 @@ class _PlantDiseaseEditState extends State<PlantDiseaseEdit> {
                 name: nameController.text,
                 altName: altNameController.text,
                 description: descriptionController.text,
+                jsonContent:
+                    jsonEncode(controller!.document.toDelta().toJson()),
               );
 
               if (result == true && context.mounted) {
@@ -262,10 +266,12 @@ class _PlantDiseaseEditState extends State<PlantDiseaseEdit> {
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ContentEditor(
-                    controller: controller,
+                    controller: controller!,
                     title: "Edit Disease Info Content",
                     onConfirm: (QuillController quillController) {
-                      //
+                      setState(() {
+                        controller = quillController;
+                      });
                     },
                   ),
                 ),
