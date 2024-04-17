@@ -3,9 +3,11 @@ import 'package:florascan/src/models/plant_model.dart';
 import 'package:florascan/src/modules/admin/plant/disease.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../services/helpers.dart';
+import '../../../services/plant_services.dart';
 import '../../../widgets/card/card_info_image.dart';
 import '../../../widgets/editor/image_uploader.dart';
 
@@ -48,7 +50,19 @@ class _PlantEditState extends State<PlantEdit> {
         backgroundColor: Colors.transparent,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              dynamic result = await PlantServices().edit(
+                plant: widget.plant,
+                name: nameController.text,
+                altName: altNameController.text,
+                description: descriptionController.text,
+              );
+
+              if (result == true && context.mounted) {
+                Fluttertoast.showToast(msg: "Details sucessfully updated.");
+                Navigator.of(context).pop();
+              }
+            },
             icon: const Icon(
               Icons.check_outlined,
               color: CustomColor.primary,
