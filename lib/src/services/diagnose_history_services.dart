@@ -31,7 +31,7 @@ class DiagnoseHistoryServices {
       id: doc.get('id'),
       user: await UserServices().get(doc.get('user')),
       dateTime: doc.get('dateTime'),
-      disease: await PlantServices().getDisease(doc.get('disease')),
+      disease: await PlantServices().getDisease(diseaseId: doc.get('disease')),
       imgPath: doc.get('imgPath'),
       imgURL: doc.get('imgURL'),
     );
@@ -50,7 +50,7 @@ class DiagnoseHistoryServices {
       id: doc.get('id'),
       user: await UserServices().get(doc.get('user')),
       dateTime: doc.get('dateTime'),
-      disease: doc.get('disease'),
+      disease: await PlantServices().getDisease(diseaseId: doc.get('disease')),
       imgPath: doc.get('imgPath'),
       imgURL: doc.get('imgURL'),
     );
@@ -68,7 +68,7 @@ class DiagnoseHistoryServices {
       id: map['id'],
       user: await UserServices().get(map['user']),
       dateTime: map['dateTime'].toDate(),
-      disease: map['disease'],
+      disease: await PlantServices().getDisease(diseaseId: map['disease']),
       imgPath: map['imgPath'],
       imgURL: map['imgURL'],
     );

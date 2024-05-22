@@ -71,6 +71,42 @@ class PlantServices {
     }
   }
 
+  // get by id
+  Future<PlantModel?> get(String id) {
+    return _collectionRef.doc(id).get().then((DocumentSnapshot doc) {
+      if (doc.exists) {
+        return PlantServices().fromDocumentSnapshot(doc);
+      } else {
+        print('Document does not exist on the database');
+        return null;
+      }
+    });
+  }
+
+  // get disease by id
+  Future<PlantDiseaseModel?> getDisease({
+    required String diseaseId,
+    String plantId = "Tomato",
+  }) async {
+    try {
+      PlantModel? plant = await PlantServices().get(plantId);
+
+      if (plant == null) {
+        throw Exception('Plant not exist');
+      }
+
+      if (plant.diseases == null || plant.diseases!.isEmpty) {
+        throw Exception('Plant has no disease');
+      }
+
+      return plant.diseases!.where((disease) => disease.id == diseaseId).first;
+    } catch (e) {
+      print(e);
+
+      return null;
+    }
+  }
+
   Future edit({
     required PlantModel plant,
     required String name,

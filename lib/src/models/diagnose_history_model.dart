@@ -6,7 +6,7 @@ class DiagnoseHistoryModel {
   final String id;
   final UserModel? user;
   final DateTime dateTime;
-  final PlantDiseaseModel disease;
+  final PlantDiseaseModel? disease;
   final String imgPath;
   final String imgURL;
 
