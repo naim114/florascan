@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../../models/user_model.dart';
 import '../../services/helpers.dart';
 import '../account/index.dart';
-import '../diagnos/index.dart';
+import '../diagnose/index.dart';
 import '../info/index.dart';
 
 class FrontFrame extends StatefulWidget {

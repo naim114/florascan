@@ -37,3 +37,10 @@ extension DetectionClassesExtension on DetectionClasses {
     }
   }
 }
+
+class DetectionResult {
+  final DetectionClasses detectedClass;
+  final double confidence;
+
+  DetectionResult(this.detectedClass, this.confidence);
+}

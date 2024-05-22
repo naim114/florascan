@@ -63,6 +63,7 @@ dependencies:
   textfield_tags: ^2.0.2
   photo_view: ^0.14.0
   tflite_flutter: ^0.10.4
+  image: ^4.1.7
 
 dev_dependencies:
   flutter_test:

@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:florascan/src/models/plant_model.dart';
-import 'package:florascan/src/modules/diagnos/result.dart';
+import 'package:florascan/src/modules/diagnose/result.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../modules/diagnose/plant_image_uploader.dart';
 import '../../services/helpers.dart';
+import '../editor/image_uploader.dart';
 
 void showPlantModal({
   required BuildContext context,
@@ -182,45 +185,30 @@ void showPlantModal({
                     decoration: const BoxDecoration(
                       color: CustomColor.secondary,
                     ),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          leading: const Icon(
-                            Icons.image,
-                            color: Colors.white,
-                          ),
-                          title: const Text(
-                            'Upload Image from Gallery',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => DiagnosisResult(),
-                            ),
-                          ),
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.energy_savings_leaf_sharp,
+                        color: Colors.white,
+                      ),
+                      title: const Text(
+                        'Diagnose Now',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
                         ),
-                        ListTile(
-                          leading: const Icon(
-                            Icons.camera,
-                            color: Colors.white,
-                          ),
-                          title: const Text(
-                            'Snap Photo with Camera',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => PlantImageUploader(
+                              appBarTitle: "Upload Plant Leaf Image",
+                              onCancel: () => Navigator.of(context).pop(),
                             ),
                           ),
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => DiagnosisResult(),
-                            ),
-                          ),
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ),
                 ),

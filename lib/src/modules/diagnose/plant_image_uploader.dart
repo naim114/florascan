@@ -1,15 +1,16 @@
 import 'dart:io';
 
+import 'package:florascan/src/modules/diagnose/result.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import '../appbar/appbar_confirm_cancel.dart';
+
+import '../../widgets/appbar/appbar_confirm_cancel.dart';
 
 // ignore: must_be_immutable
-class ImageUploader extends StatefulWidget {
+class PlantImageUploader extends StatefulWidget {
   final void Function() onCancel;
-  final void Function(File imageFile, BuildContext pickerContext) onConfirm;
   final String appBarTitle;
   final double width;
   final double height;
@@ -17,10 +18,9 @@ class ImageUploader extends StatefulWidget {
   File? imageFile;
   BoxFit? fit;
 
-  ImageUploader({
+  PlantImageUploader({
     super.key,
     required this.onCancel,
-    required this.onConfirm,
     this.width = 300,
     this.height = 300,
     this.appBarTitle = "Upload Image",
@@ -31,16 +31,26 @@ class ImageUploader extends StatefulWidget {
   });
 
   @override
-  State<ImageUploader> createState() => ImageUploaderState();
+  State<PlantImageUploader> createState() => PlantImageUploaderState();
 }
 
-class ImageUploaderState extends State<ImageUploader> {
+class PlantImageUploaderState extends State<PlantImageUploader> {
   var imagePicker;
 
   @override
   void initState() {
     super.initState();
     imagePicker = ImagePicker();
+  }
+
+  void onConfirm(File imageFile, BuildContext pickerContext) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => DiagnosisResult(
+          imageFile: imageFile,
+        ),
+      ),
+    );
   }
 
   @override
@@ -50,9 +60,7 @@ class ImageUploaderState extends State<ImageUploader> {
         onCancel: widget.onCancel,
         onConfirm: () {
           if (widget.imageFile != null) {
-            widget.onConfirm(widget.imageFile!, context);
-            // Fluttertoast.showToast(msg: "Image uploaded");
-            Navigator.pop(context);
+            onConfirm(widget.imageFile!, context);
           } else {
             Fluttertoast.showToast(msg: "Please upload an image first");
           }

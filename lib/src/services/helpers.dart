@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ import 'package:shimmer/shimmer.dart';
 import 'package:theme_mode_handler/theme_picker_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
+import 'package:image/image.dart' as img;
+import 'dart:ui' as ui;
 
 class CustomColor {
   static const primary = Color(0xFF679668);
@@ -178,3 +181,64 @@ void openImageViewerDialog({
         );
       },
     );
+
+Float32List imageToFloat32List(img.Image image) {
+  // Get the pixel data from the image
+  Uint8List pixelData = image.getBytes();
+
+  // Create a Float32List with the same length
+  Float32List floatData = Float32List(pixelData.length);
+
+  // Convert and normalize the pixel data
+  for (int i = 0; i < pixelData.length; i++) {
+    floatData[i] = pixelData[i] / 255.0;
+  }
+
+  return floatData;
+}
+
+Future<ui.Image> fileToUiImage(File file) async {
+  // Read the image file as bytes
+  final Uint8List imageBytes = await file.readAsBytes();
+
+  // Decode the image using the `image` package
+  final img.Image? decodedImage = img.decodeImage(imageBytes);
+
+  if (decodedImage == null) {
+    throw Exception('Unable to decode image');
+  }
+
+  // Convert the decoded image to a `ui.Image`
+  final ui.Codec codec = await ui
+      .instantiateImageCodec(Uint8List.fromList(img.encodePng(decodedImage)));
+  final ui.FrameInfo frameInfo = await codec.getNextFrame();
+
+  return frameInfo.image;
+}
+
+Future<Float32List> uiImageToFloat32List(ui.Image image) async {
+  final int width = image.width;
+  final int height = image.height;
+
+  // Convert the ui.Image to a ByteData object
+  final ByteData? byteData =
+      await image.toByteData(format: ui.ImageByteFormat.rawRgba);
+  if (byteData == null) {
+    throw Exception('Unable to convert image to ByteData');
+  }
+
+  // Convert the ByteData to a Uint8List
+  final Uint8List byteBuffer = byteData.buffer.asUint8List();
+
+  // Create a Float32List to store the normalized pixel values
+  final Float32List floatData = Float32List(width * height * 3);
+
+  // Extract RGB channels and normalize the pixel values
+  for (int i = 0, j = 0; i < byteBuffer.length; i += 4, j += 3) {
+    floatData[j] = byteBuffer[i] / 255.0; // Red channel
+    floatData[j + 1] = byteBuffer[i + 1] / 255.0; // Green channel
+    floatData[j + 2] = byteBuffer[i + 2] / 255.0; // Blue channel
+  }
+
+  return floatData;
+}
