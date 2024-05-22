@@ -65,4 +65,60 @@ class DiagnoseHistoryServices {
       imgURL: map['imgURL'],
     );
   }
+
+  // get by id
+  Future<DiagnoseHistoryModel?> get(String id) {
+    return _collectionRef.doc(id).get().then((DocumentSnapshot doc) {
+      if (doc.exists) {
+        return DiagnoseHistoryServices().fromDocumentSnapshot(doc);
+      } else {
+        print('Document does not exist on the database');
+        return null;
+      }
+    });
+  }
+
+  // get all
+  Future<List<DiagnoseHistoryModel?>> getAll() async {
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot =
+        await _collectionRef.orderBy('createdAt', descending: true).get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      List<DocumentSnapshot> docList = querySnapshot.docs;
+
+      List<Future<DiagnoseHistoryModel?>> futures = docList
+          .map((doc) => DiagnoseHistoryServices().fromDocumentSnapshot(doc))
+          .toList();
+
+      return await Future.wait(futures);
+    } else {
+      return List.empty();
+    }
+  }
+
+  // get by custom field
+  Future<List<DiagnoseHistoryModel?>> getBy(
+      String fieldName, String value) async {
+    List<DiagnoseHistoryModel?> dataList = List.empty(growable: true);
+
+    QuerySnapshot querySnapshot =
+        await _collectionRef.orderBy('createdAt', descending: true).get();
+
+    final List<QueryDocumentSnapshot<Object?>> allDoc =
+        querySnapshot.docs.toList();
+
+    for (var doc in allDoc) {
+      if (doc.get(fieldName) == value) {
+        DiagnoseHistoryModel? item =
+            await DiagnoseHistoryServices().fromDocumentSnapshot(doc);
+
+        if (item != null) {
+          dataList.add(item);
+        }
+      }
+    }
+
+    return dataList;
+  }
 }
