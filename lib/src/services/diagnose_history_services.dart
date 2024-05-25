@@ -131,9 +131,8 @@ class DiagnoseHistoryServices {
   }
 
   Future add({
-    required PlantDiseaseModel disease,
+    required PlantDiseaseModel? disease,
     required UserModel user,
-    required String description,
     required File imageFile,
   }) async {
     try {

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:florascan/src/models/user_model.dart';
 import 'package:florascan/src/modules/diagnose/result.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import '../../widgets/appbar/appbar_confirm_cancel.dart';
 // ignore: must_be_immutable
 class PlantImageUploader extends StatefulWidget {
   final void Function() onCancel;
+  final UserModel user;
   final String appBarTitle;
   final double width;
   final double height;
@@ -28,6 +30,7 @@ class PlantImageUploader extends StatefulWidget {
         'Tap image to upload new image. Tap top right to confirm changes.',
     this.imageFile,
     this.fit = BoxFit.cover,
+    required this.user,
   });
 
   @override
@@ -48,6 +51,7 @@ class PlantImageUploaderState extends State<PlantImageUploader> {
       MaterialPageRoute(
         builder: (context) => DiagnosisResult(
           imageFile: imageFile,
+          user: widget.user,
         ),
       ),
     );

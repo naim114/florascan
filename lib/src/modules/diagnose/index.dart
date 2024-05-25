@@ -1,10 +1,12 @@
 import 'package:florascan/src/modules/diagnose/choose_plant.dart';
-import 'package:florascan/src/modules/diagnose/history.dart';
 import 'package:flutter/material.dart';
+import '../../models/user_model.dart';
 import '../../widgets/typography/page_title_icon.dart';
 
 class DiagnoseMenu extends StatelessWidget {
-  const DiagnoseMenu({super.key, required this.mainContext});
+  const DiagnoseMenu(
+      {super.key, required this.mainContext, required this.user});
+  final UserModel? user;
   final BuildContext mainContext;
   @override
   Widget build(BuildContext context) {
@@ -51,8 +53,10 @@ class DiagnoseMenu extends StatelessWidget {
                 trailing: const Icon(Icons.arrow_forward_ios_rounded),
                 onTap: () => Navigator.of(mainContext).push(
                   MaterialPageRoute(
-                    builder: (context) =>
-                        DiagnoseChoosePlant(mainContext: mainContext),
+                    builder: (context) => DiagnoseChoosePlant(
+                      mainContext: mainContext,
+                      user: user!,
+                    ),
                   ),
                 ),
               ),

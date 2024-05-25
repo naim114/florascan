@@ -27,9 +27,9 @@ class DiagnoseHistoryModel {
   Map<String, Object?> toJson() {
     return {
       'id': id,
-      'user': user,
+      'user': user!.id,
       'dateTime': dateTime,
-      'disease': disease,
+      'disease': disease == null ? 'healthy' : disease!.id,
       'imgPath': imgPath,
       'imgURL': imgURL,
     };

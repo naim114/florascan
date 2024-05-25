@@ -1,18 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:florascan/src/models/plant_model.dart';
-import 'package:florascan/src/modules/diagnose/result.dart';
+import 'package:florascan/src/models/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../modules/diagnose/plant_image_uploader.dart';
 import '../../services/helpers.dart';
-import '../editor/image_uploader.dart';
 
 void showPlantModal({
   required BuildContext context,
   required PlantModel plant,
+  required UserModel user,
 }) =>
     showModalBottomSheet(
       shape: const RoundedRectangleBorder(
@@ -205,6 +204,7 @@ void showPlantModal({
                             builder: (context) => PlantImageUploader(
                               appBarTitle: "Upload Plant Leaf Image",
                               onCancel: () => Navigator.of(context).pop(),
+                              user: user,
                             ),
                           ),
                         );

@@ -43,4 +43,29 @@ extension DetectionClassesExtension on DetectionClasses {
         return "Healthy";
     }
   }
+
+  String get id {
+    switch (this) {
+      case DetectionClasses.Tomato_Bacterial_spot:
+        return "bacterial_spot";
+      case DetectionClasses.Tomato_Early_blight:
+        return "early_blight";
+      case DetectionClasses.Tomato_Late_blight:
+        return "late_blight";
+      case DetectionClasses.Tomato_Leaf_Mold:
+        return "leaf_mold";
+      case DetectionClasses.Tomato_Septoria_leaf_spot:
+        return "septoria_leaf_spot";
+      case DetectionClasses.Tomato_Spider_mites_Two_spotted_spider_mite:
+        return "spider_mites_two_spotted_spider_mite";
+      case DetectionClasses.Tomato_Target_Spot:
+        return "target_spot";
+      case DetectionClasses.Tomato_Tomato_YellowLeaf_Curl_Virus:
+        return "tomato_yellowleaf_curl_virus";
+      case DetectionClasses.Tomato_Tomato_mosaic_virus:
+        return "tomato_mosaic_virus";
+      case DetectionClasses.Tomato_healthy:
+        return "healthy";
+    }
+  }
 }
