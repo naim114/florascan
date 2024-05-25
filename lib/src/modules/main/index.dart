@@ -1,3 +1,4 @@
+import 'package:florascan/src/modules/diagnose/index.dart';
 import 'package:florascan/src/modules/home/index.dart';
 import 'package:florascan/src/modules/news/index.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +9,6 @@ import 'package:provider/provider.dart';
 import '../../models/user_model.dart';
 import '../../services/helpers.dart';
 import '../account/index.dart';
-import '../diagnose/index.dart';
 import '../info/index.dart';
 
 class FrontFrame extends StatefulWidget {
@@ -100,7 +100,7 @@ class _FrontFrameState extends State<FrontFrame> {
             onStart: () => _controller.jumpToTab(2),
           ),
           Info(mainContext: context),
-          Diagnosis(mainContext: context),
+          DiagnoseMenu(mainContext: context),
           IndexNews(mainContext: context, user: user),
           Account(mainContext: context, user: user),
         ],

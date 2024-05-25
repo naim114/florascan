@@ -18,8 +18,7 @@ Widget circleImage({
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                  image:
-                      AssetImage('assets/images/default-profile-picture.png'),
+                  image: AssetImage('assets/images/noimage.png'),
                   fit: BoxFit.cover),
             ),
           )

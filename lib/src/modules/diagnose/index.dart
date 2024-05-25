@@ -1,86 +1,99 @@
-import 'package:florascan/src/models/plant_model.dart';
+import 'package:florascan/src/modules/diagnose/choose_plant.dart';
+import 'package:florascan/src/modules/diagnose/history.dart';
 import 'package:flutter/material.dart';
-
-import '../../services/plant_services.dart';
-import '../../widgets/loader/indicator_scaffold.dart';
-import '../../widgets/modal/plant_modal.dart';
 import '../../widgets/typography/page_title_icon.dart';
 
-class Diagnosis extends StatelessWidget {
-  const Diagnosis({super.key, required this.mainContext});
+class DiagnoseMenu extends StatelessWidget {
+  const DiagnoseMenu({super.key, required this.mainContext});
   final BuildContext mainContext;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<PlantModel?>>(
-        future: PlantServices().getAll(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return progressIndicatorScaffold(context: context);
-          }
-
-          List<PlantModel> plants = snapshot.data!
-              .where((plant) => plant != null)
-              .cast<PlantModel>()
-              .toList();
-
-          return ListView(
+        body: ListView(
+      children: [
+        Container(
+          padding: const EdgeInsets.only(
+            top: 25,
+            left: 25,
+            right: 25,
+            // bottom: 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.only(
-                  top: 25,
-                  left: 25,
-                  right: 25,
-                  // bottom: 10,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    pageTitleIcon(
-                      context: context,
-                      title: "Diagnosis Plant Disease",
-                      icon: const Icon(
-                        Icons.energy_savings_leaf,
-                        size: 20,
-                      ),
-                    ),
-                  ],
+              pageTitleIcon(
+                context: context,
+                title: "Diagnosis Plant Disease",
+                icon: const Icon(
+                  Icons.energy_savings_leaf,
+                  size: 20,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
-                child: Text(
-                  'Choose available type of plants to diagnose.',
-                  style: TextStyle(),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 10,
-                ),
-                child: Column(
-                  children: plants
-                      .map(
-                        (plant) => ListTile(
-                          title: Text(plant.name),
-                          trailing: const Icon(Icons.arrow_forward_ios_rounded),
-                          onTap: () {
-                            showPlantModal(
-                              context: mainContext,
-                              plant: plant,
-                            );
-                          },
-                        ),
-                      )
-                      .toList(),
-                ),
-              ),
-              const SizedBox(height: 30),
             ],
-          );
-        },
-      ),
-    );
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+          child: Text(
+            'Choose available options.',
+            style: TextStyle(),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 10,
+          ),
+          child: Column(
+            children: [
+              ListTile(
+                title: const Text("Start plant disease diagnosis"),
+                trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                onTap: () => Navigator.of(mainContext).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        DiagnoseChoosePlant(mainContext: mainContext),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 10,
+          ),
+          child: Column(
+            children: [
+              ListTile(
+                title: const Text(
+                    "Plant disease identification model building report"),
+                trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                onTap: () {},
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 10,
+          ),
+          child: Column(
+            children: [
+              ListTile(
+                title: const Text("Saved diagnosis history"),
+                trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                onTap: () {},
+                // onTap: () => Navigator.push(context,
+                // MaterialPageRoute(builder: (context) => DiagnoseHistory(),);),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 30),
+      ],
+    ));
   }
 }
