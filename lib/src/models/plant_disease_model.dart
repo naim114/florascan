@@ -27,7 +27,7 @@ class PlantDiseaseModel {
 
   @override
   String toString() {
-    return 'PlantCategoryModel(altName: $altName, createdAt: $createdAt, description: $description, id: $id, imgPath: $imgPath, imgURL: $imgURL, jsonContent: $jsonContent, name: $name, updatedAt: $updatedAt, gallery: ${gallery == null ? 'null' : gallery!.length})';
+    return 'PlantDiseaseModel(altName: $altName, createdAt: $createdAt, description: $description, id: $id, imgPath: $imgPath, imgURL: $imgURL, jsonContent: $jsonContent, name: $name, updatedAt: $updatedAt, gallery: ${gallery == null ? 'null' : gallery!.length})';
   }
 
   factory PlantDiseaseModel.fromMap(Map<String, dynamic> map) {

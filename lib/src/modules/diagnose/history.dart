@@ -9,10 +9,8 @@ import 'history_view.dart';
 
 class DiagnoseHistory extends StatefulWidget {
   final List<DiagnoseHistoryModel> diagnoseList;
-  final Function(bool refresh) notifyRefresh;
 
-  const DiagnoseHistory(
-      {super.key, required this.diagnoseList, required this.notifyRefresh});
+  const DiagnoseHistory({super.key, required this.diagnoseList});
 
   @override
   State<DiagnoseHistory> createState() => _DiagnoseHistoryState();
@@ -87,14 +85,22 @@ class _DiagnoseHistoryState extends State<DiagnoseHistory> {
                           _currentSortColumn = columnIndex;
                           if (_isAscending == true) {
                             _isAscending = false;
-                            widget.diagnoseList.sort((itemA, itemB) => itemA
-                                .disease!.name
-                                .compareTo(itemB.disease!.name));
+                            widget.diagnoseList.sort((itemA, itemB) {
+                              final String nameA =
+                                  itemA.disease?.name ?? "Healthy";
+                              final String nameB =
+                                  itemB.disease?.name ?? "Healthy";
+                              return nameA.compareTo(nameB);
+                            });
                           } else {
                             _isAscending = true;
-                            widget.diagnoseList.sort((itemA, itemB) => itemB
-                                .disease!.name
-                                .compareTo(itemA.disease!.name));
+                            widget.diagnoseList.sort((itemA, itemB) {
+                              final String nameA =
+                                  itemA.disease?.name ?? "Healthy";
+                              final String nameB =
+                                  itemB.disease?.name ?? "Healthy";
+                              return nameB.compareTo(nameA);
+                            });
                           }
                         });
                       },
@@ -122,6 +128,7 @@ class _DiagnoseHistoryState extends State<DiagnoseHistory> {
                   ],
                   rows: List.generate(filteredData.length, (index) {
                     final result = filteredData[index];
+
                     return DataRow(
                       cells: [
                         DataCell(
@@ -134,9 +141,11 @@ class _DiagnoseHistoryState extends State<DiagnoseHistory> {
                             ),
                           ),
                         ),
-                        DataCell(Text(result.disease!.name)),
-                        DataCell(Text(
-                            DateFormat('dd/MM/yyyy').format(result.dateTime))),
+                        DataCell(Text(result.disease == null
+                            ? 'Healthy'
+                            : result.disease!.name)),
+                        DataCell(Text(DateFormat('dd/MM/yyyy h:mm a')
+                            .format(result.dateTime))),
                         DataCell(
                           Row(
                             children: [

@@ -30,7 +30,7 @@ class DiagnoseHistoryServices {
     return DiagnoseHistoryModel(
       id: doc.get('id'),
       user: await UserServices().get(doc.get('user')),
-      dateTime: doc.get('dateTime'),
+      dateTime: doc.get('dateTime').toDate(),
       disease: await PlantServices().getDisease(diseaseId: doc.get('disease')),
       imgPath: doc.get('imgPath'),
       imgURL: doc.get('imgURL'),
@@ -49,7 +49,7 @@ class DiagnoseHistoryServices {
     return DiagnoseHistoryModel(
       id: doc.get('id'),
       user: await UserServices().get(doc.get('user')),
-      dateTime: doc.get('dateTime'),
+      dateTime: doc.get('dateTime').toDate(),
       disease: await PlantServices().getDisease(diseaseId: doc.get('disease')),
       imgPath: doc.get('imgPath'),
       imgURL: doc.get('imgURL'),
@@ -90,7 +90,7 @@ class DiagnoseHistoryServices {
   Future<List<DiagnoseHistoryModel?>> getAll() async {
     // Get docs from collection reference
     QuerySnapshot querySnapshot =
-        await _collectionRef.orderBy('createdAt', descending: true).get();
+        await _collectionRef.orderBy('dateTime', descending: true).get();
 
     if (querySnapshot.docs.isNotEmpty) {
       List<DocumentSnapshot> docList = querySnapshot.docs;
@@ -111,7 +111,7 @@ class DiagnoseHistoryServices {
     List<DiagnoseHistoryModel?> dataList = List.empty(growable: true);
 
     QuerySnapshot querySnapshot =
-        await _collectionRef.orderBy('createdAt', descending: true).get();
+        await _collectionRef.orderBy('dateTime', descending: true).get();
 
     final List<QueryDocumentSnapshot<Object?>> allDoc =
         querySnapshot.docs.toList();
