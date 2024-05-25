@@ -23,6 +23,7 @@ class _DiagnosisResultState extends State<DiagnosisResult> {
   String label = "N/A";
   String confidence = "N/A";
   bool initialized = false;
+  PredictionResult? predictionResult;
 
   @override
   void initState() {
@@ -35,13 +36,11 @@ class _DiagnosisResultState extends State<DiagnosisResult> {
 
     final result = await classifier.predict(widget.imageFile);
 
-    print(result.detectedClass);
-    print(result.confidence);
-
     setState(() {
       initialized = true;
-      label = result.detectedClass.label;
-      confidence = result.confidence.toString();
+      predictionResult = result;
+      label = result.predictedClass.label;
+      confidence = result.confidence.toStringAsFixed(2);
     });
   }
 
@@ -151,86 +150,48 @@ class _DiagnosisResultState extends State<DiagnosisResult> {
                     ),
                   ),
                 ),
-                ListTile(
-                  tileColor: isDarkTheme(context)
-                      ? CupertinoColors.systemGrey
-                      : CupertinoColors.lightBackgroundGray,
-                  title: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      "Read more about this disease",
-                      style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 25.0,
+                    right: 25.0,
+                    top: 30,
+                    bottom: 10,
                   ),
-                  trailing: const Icon(Icons.arrow_forward_ios_outlined),
+                  child: Text(
+                    "Choose below options.",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 ListTile(
-                  tileColor: isDarkTheme(context)
-                      ? CupertinoColors.systemGrey
-                      : CupertinoColors.lightBackgroundGray,
-                  title: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      "Save diagnosis result",
-                      style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                      ),
+                  leading: const Icon(
+                    Icons.read_more,
+                    color: Colors.white,
+                  ),
+                  tileColor: CustomColor.secondary,
+                  title: Text(
+                    'Read more about $label',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  trailing: const Icon(Icons.arrow_forward_ios_outlined),
+                  onTap: () {},
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(
-                //     left: 25.0,
-                //     right: 25.0,
-                //     top: 30,
-                //     bottom: 10,
-                //   ),
-                //   child: Text(
-                //     "Choose below to diagnose again.",
-                //     style: TextStyle(fontWeight: FontWeight.bold),
-                //   ),
-                // ),
-                // ListTile(
-                //   leading: const Icon(
-                //     Icons.image,
-                //     color: Colors.white,
-                //   ),
-                //   tileColor: CustomColor.secondary,
-                //   title: const Text(
-                //     'Upload Image from Gallery',
-                //     style: TextStyle(
-                //       color: Colors.white,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                //   onTap: () => Navigator.of(context).push(
-                //     MaterialPageRoute(
-                //       builder: (context) => DiagnosisResult(),
-                //     ),
-                //   ),
-                // ),
-                // ListTile(
-                //   leading: const Icon(
-                //     Icons.camera,
-                //     color: Colors.white,
-                //   ),
-                //   tileColor: CustomColor.secondary,
-                //   title: const Text(
-                //     'Snap Photo with Camera',
-                //     style: TextStyle(
-                //       color: Colors.white,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //   ),
-                //   onTap: () => Navigator.of(context).push(
-                //     MaterialPageRoute(
-                //       builder: (context) => DiagnosisResult(),
-                //     ),
-                //   ),
-                // ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.save,
+                    color: Colors.white,
+                  ),
+                  tileColor: CustomColor.secondary,
+                  title: const Text(
+                    'Save Diagnosis Result',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onTap: () {},
+                ),
               ],
             ),
     );

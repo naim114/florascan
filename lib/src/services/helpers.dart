@@ -182,33 +182,23 @@ void openImageViewerDialog({
       },
     );
 
-Float32List imageToFloat32List(img.Image image) {
-  // Get the pixel data from the image
-  Uint8List pixelData = image.getBytes();
-
-  // Create a Float32List with the same length
-  Float32List floatData = Float32List(pixelData.length);
-
-  // Convert and normalize the pixel data
-  for (int i = 0; i < pixelData.length; i++) {
-    floatData[i] = pixelData[i] / 255.0;
-  }
-
-  return floatData;
-}
-
-Future<ui.Image> fileToUiImage(File file) async {
+Future<ui.Image> fileToUiImage(
+    File file, int targetWidth, int targetHeight) async {
   // Read the image file as bytes
   final Uint8List imageBytes = await file.readAsBytes();
 
   // Decode the image using the `image` package
-  final img.Image? decodedImage = img.decodeImage(imageBytes);
+  img.Image? decodedImage = img.decodeImage(imageBytes);
 
   if (decodedImage == null) {
     throw Exception('Unable to decode image');
   }
 
-  // Convert the decoded image to a `ui.Image`
+  // Resize the image to target dimensions
+  decodedImage =
+      img.copyResize(decodedImage, width: targetWidth, height: targetHeight);
+
+  // Convert the resized image to a `ui.Image`
   final ui.Codec codec = await ui
       .instantiateImageCodec(Uint8List.fromList(img.encodePng(decodedImage)));
   final ui.FrameInfo frameInfo = await codec.getNextFrame();

@@ -6,7 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:florascan/src/models/plant_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path/path.dart' as path;
-import '../models/plant_disease_gallery_model.dart';
 import '../models/plant_disease_model.dart';
 
 class PlantServices {

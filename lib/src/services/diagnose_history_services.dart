@@ -224,7 +224,7 @@ class DiagnoseHistoryServices {
     try {
       // delete previous file
       final Reference ref =
-          _firebaseStorage.ref().child(diagnoseHistory.imgPath!);
+          _firebaseStorage.ref().child(diagnoseHistory.imgPath);
       await ref.delete();
 
       final delete = _collectionRef.doc(diagnoseHistory.id).delete();

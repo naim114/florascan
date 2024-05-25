@@ -1,3 +1,10 @@
+class PredictionResult {
+  final DetectionClasses predictedClass;
+  final double confidence;
+
+  PredictionResult(this.predictedClass, this.confidence);
+}
+
 enum DetectionClasses {
   Tomato_Bacterial_spot,
   Tomato_Early_blight,
@@ -36,11 +43,4 @@ extension DetectionClassesExtension on DetectionClasses {
         return "Healthy";
     }
   }
-}
-
-class DetectionResult {
-  final DetectionClasses detectedClass;
-  final double confidence;
-
-  DetectionResult(this.detectedClass, this.confidence);
 }

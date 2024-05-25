@@ -30,9 +30,9 @@ class TFLiteServices {
     return labelsData.split('\n');
   }
 
-  Future<DetectionResult> predict(File imageFile) async {
-    // Convert the File to a ui.Image
-    final ui.Image uiImage = await fileToUiImage(imageFile);
+  Future<PredictionResult> predict(File imageFile) async {
+    // Convert the File to a ui.Image and resize it to 256x256
+    final ui.Image uiImage = await fileToUiImage(imageFile, 256, 256);
 
     // Convert the ui.Image to a Float32List
     final Float32List inputBytes = await uiImageToFloat32List(uiImage);
@@ -43,7 +43,7 @@ class TFLiteServices {
     // Output container with 10 elements for the 10 classes
     final output = Float32List(1 * 10).reshape([1, 10]);
 
-    // Run data through the model
+    // Run the model
     interpreter.run(input, output);
 
     // Get the index of the maximum value from the output data
@@ -60,7 +60,7 @@ class TFLiteServices {
     // Calculate confidence percentage
     double confidencePercentage = maxValue * 100;
 
-    return DetectionResult(
+    return PredictionResult(
         DetectionClasses.values[maxIndex], confidencePercentage);
   }
 
