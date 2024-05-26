@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 import '../../models/diagnose_history_model.dart';
+import '../../services/diagnose_history_services.dart';
 import '../../services/helpers.dart';
 import '../../widgets/image/circle_image.dart';
 import 'history_view.dart';
@@ -205,16 +207,18 @@ class _DiagnoseHistoryState extends State<DiagnoseHistory> {
                                       ),
                                       TextButton(
                                         onPressed: () async {
-                                          // final result = await NewsService()
-                                          //     .delete(news: news);
-                                          // if (result == true &&
-                                          //     context.mounted) {
-                                          //   Fluttertoast.showToast(
-                                          //       msg: "${news.title} deleted");
-                                          //   Navigator.pop(context);
-                                          //   widget.notifyRefresh(true);
-                                          // }
-                                          widget.notifyRefresh(true);
+                                          final delete =
+                                              await DiagnoseHistoryServices()
+                                                  .delete(
+                                                      diagnoseHistory: result);
+                                          if (delete == true &&
+                                              context.mounted) {
+                                            Fluttertoast.showToast(
+                                                msg: "Diagnosis deleted");
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                            widget.notifyRefresh(true);
+                                          }
                                         },
                                         child: const Text(
                                           'OK',
