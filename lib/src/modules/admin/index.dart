@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/user_model.dart';
 import '../../services/helpers.dart';
+import '../../widgets/builder/diagnosis_result_builder.dart';
 import '../../widgets/builder/news_builder.dart';
 import '../../widgets/builder/user_builder.dart';
 import '../../widgets/list_tile/list_tile_icon.dart';
@@ -68,6 +69,19 @@ class AdminPanel extends StatelessWidget {
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const AdminPanelPlant(),
+              ),
+            ),
+          ),
+          listTileIcon(
+            context: context,
+            icon: Icons.history,
+            title: "Diagnose History",
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => DiagnosisResultBuilder(
+                  currentUser: currentUser,
+                  getAll: true,
+                ),
               ),
             ),
           ),
