@@ -223,16 +223,17 @@ class _DiagnosisResultState extends State<DiagnosisResult> {
                       onTap: () async {
                         setState(() => initialized = false);
 
-                        var result = false;
+                        var add = false;
 
-                        result = await DiagnoseHistoryServices().add(
+                        add = await DiagnoseHistoryServices().add(
                           disease: disease,
                           user: widget.user,
                           imageFile: widget.imageFile,
+                          confidence: predictionResult!.confidence,
                         );
 
                         if (context.mounted) {
-                          if (result) {
+                          if (add) {
                             Fluttertoast.showToast(
                                 msg: "Diagosis result successfully saved!");
 

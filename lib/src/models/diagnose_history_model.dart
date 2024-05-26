@@ -7,6 +7,7 @@ class DiagnoseHistoryModel {
   final UserModel? user;
   final DateTime dateTime;
   final PlantDiseaseModel? disease;
+  final double confidence;
   final String imgPath;
   final String imgURL;
 
@@ -17,6 +18,7 @@ class DiagnoseHistoryModel {
     required this.disease,
     required this.imgPath,
     required this.imgURL,
+    required this.confidence,
   });
 
   @override
@@ -32,6 +34,7 @@ class DiagnoseHistoryModel {
       'disease': disease == null ? 'healthy' : disease!.id,
       'imgPath': imgPath,
       'imgURL': imgURL,
+      'confidence': confidence,
     };
   }
 }

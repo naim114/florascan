@@ -34,6 +34,7 @@ class DiagnoseHistoryServices {
       disease: await PlantServices().getDisease(diseaseId: doc.get('disease')),
       imgPath: doc.get('imgPath'),
       imgURL: doc.get('imgURL'),
+      confidence: doc.get('confidence'),
     );
   }
 
@@ -53,6 +54,7 @@ class DiagnoseHistoryServices {
       disease: await PlantServices().getDisease(diseaseId: doc.get('disease')),
       imgPath: doc.get('imgPath'),
       imgURL: doc.get('imgURL'),
+      confidence: doc.get('confidence'),
     );
   }
 
@@ -71,6 +73,7 @@ class DiagnoseHistoryServices {
       disease: await PlantServices().getDisease(diseaseId: map['disease']),
       imgPath: map['imgPath'],
       imgURL: map['imgURL'],
+      confidence: map['confidence'],
     );
   }
 
@@ -134,6 +137,7 @@ class DiagnoseHistoryServices {
     required PlantDiseaseModel? disease,
     required UserModel user,
     required File imageFile,
+    required double confidence,
   }) async {
     try {
       dynamic add = await _collectionRef.add({
@@ -203,6 +207,7 @@ class DiagnoseHistoryServices {
               disease: disease,
               imgPath: 'diagnose_history/${user.id}/${docRef.id}$extension',
               imgURL: downloadUrl,
+              confidence: confidence,
             ).toJson())
             .then((value) => print("News Added"));
       });

@@ -106,6 +106,23 @@ class _DiagnoseHistoryState extends State<DiagnoseHistory> {
                       },
                     ),
                     DataColumn(
+                      label: const Text('Confidence'),
+                      onSort: (columnIndex, _) {
+                        setState(() {
+                          _currentSortColumn = columnIndex;
+                          if (_isAscending == true) {
+                            _isAscending = false;
+                            widget.diagnoseList.sort((itemA, itemB) =>
+                                itemA.confidence.compareTo(itemB.confidence));
+                          } else {
+                            _isAscending = true;
+                            widget.diagnoseList.sort((itemA, itemB) =>
+                                itemB.confidence.compareTo(itemA.confidence));
+                          }
+                        });
+                      },
+                    ),
+                    DataColumn(
                       label: const Text('Date Time'),
                       onSort: (columnIndex, _) {
                         setState(() {
@@ -144,6 +161,8 @@ class _DiagnoseHistoryState extends State<DiagnoseHistory> {
                         DataCell(Text(result.disease == null
                             ? 'Healthy'
                             : result.disease!.name)),
+                        DataCell(
+                            Text("${result.confidence.toStringAsFixed(2)}%")),
                         DataCell(Text(DateFormat('dd/MM/yyyy h:mm a')
                             .format(result.dateTime))),
                         DataCell(
