@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../models/diagnose_history_model.dart';
 import '../../models/user_model.dart';
 import '../../services/diagnose_history_services.dart';
+import '../../services/helpers.dart';
 import '../../widgets/typography/page_title_icon.dart';
 import 'history.dart';
 
@@ -79,7 +80,11 @@ class DiagnoseMenu extends StatelessWidget {
                   title: const Text(
                       "Plant disease identification model building report"),
                   trailing: const Icon(Icons.arrow_forward_ios_rounded),
-                  onTap: () {},
+                  onTap: () => goToURL(
+                    context: context,
+                    url: Uri.parse(
+                        'https://github.com/naim114/tomato-plant-disease-classification-machine-learning/blob/master/model_building.ipynb'),
+                  ),
                 ),
               ],
             ),
@@ -94,7 +99,6 @@ class DiagnoseMenu extends StatelessWidget {
                 ListTile(
                   title: const Text("Saved diagnosis history"),
                   trailing: const Icon(Icons.arrow_forward_ios_rounded),
-                  // onTap: () {},
                   onTap: () => Navigator.push(
                       mainContext,
                       MaterialPageRoute(
