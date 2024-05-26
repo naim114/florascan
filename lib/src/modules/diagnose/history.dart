@@ -217,7 +217,6 @@ class _DiagnoseHistoryState extends State<DiagnoseHistory> {
                                                 msg: "Diagnosis deleted");
                                             Navigator.pop(context);
                                             Navigator.pop(context);
-                                            widget.notifyRefresh(true);
                                           }
                                         },
                                         child: const Text(
