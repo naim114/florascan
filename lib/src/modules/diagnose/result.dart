@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../services/helpers.dart';
+import '../info/menu.dart';
 
 class DiagnosisResult extends StatefulWidget {
   final File imageFile;
@@ -205,7 +206,14 @@ class _DiagnosisResultState extends State<DiagnosisResult> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            onTap: () {},
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DiseaseInfoMenu(
+                                  disease: disease!,
+                                ),
+                              ),
+                            ),
                           ),
                     ListTile(
                       leading: const Icon(
