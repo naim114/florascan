@@ -9,8 +9,10 @@ import 'history_view.dart';
 
 class DiagnoseHistory extends StatefulWidget {
   final List<DiagnoseHistoryModel> diagnoseList;
+  final Function(bool refresh) notifyRefresh;
 
-  const DiagnoseHistory({super.key, required this.diagnoseList});
+  const DiagnoseHistory(
+      {super.key, required this.diagnoseList, required this.notifyRefresh});
 
   @override
   State<DiagnoseHistory> createState() => _DiagnoseHistoryState();
@@ -174,10 +176,10 @@ class _DiagnoseHistoryState extends State<DiagnoseHistory> {
                                 onPressed: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            DiagnoseHistoryView(
-                                              diagnose: result,
-                                            )),
+                                      builder: (context) => DiagnoseHistoryView(
+                                        diagnose: result,
+                                      ),
+                                    ),
                                   );
                                 },
                               ),
@@ -212,6 +214,7 @@ class _DiagnoseHistoryState extends State<DiagnoseHistory> {
                                           //   Navigator.pop(context);
                                           //   widget.notifyRefresh(true);
                                           // }
+                                          widget.notifyRefresh(true);
                                         },
                                         child: const Text(
                                           'OK',
