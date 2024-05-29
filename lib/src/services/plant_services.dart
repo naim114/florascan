@@ -4,9 +4,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:florascan/src/models/plant_model.dart';
+import 'package:florascan/src/services/helpers.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path/path.dart' as path;
+import 'package:search_page/search_page.dart';
 import '../models/plant_disease_model.dart';
+import '../models/user_model.dart';
+import '../widgets/list_tile/list_tile_card_disease.dart';
 
 class PlantServices {
   final CollectionReference _collectionRef =
@@ -323,6 +329,94 @@ class PlantServices {
       // Handle error
 
       return false;
+    }
+  }
+
+  Future searchPlantDisease({
+    required BuildContext context,
+    required UserModel user,
+    String? query,
+  }) async {
+    List<PlantModel?> plantList = await PlantServices().getAll();
+
+    List<PlantDiseaseModel> allDiseases = plantList
+        .where((plant) => plant != null)
+        .expand((plant) => plant!.diseases ?? [])
+        .cast<PlantDiseaseModel>()
+        .toList();
+
+    if (context.mounted) {
+      return showSearch(
+        context: context,
+        query: query,
+        delegate: SearchPage(
+          barTheme: Theme.of(context).brightness == Brightness.dark
+              ? ThemeData(
+                  colorScheme: ColorScheme.fromSeed(
+                    seedColor: CustomColor.primary,
+                    brightness: Brightness.dark,
+                  ),
+                  brightness: Brightness.dark,
+                  primarySwatch: CustomColorShades.primary(),
+                  primaryColor: CustomColor.primary,
+                  textTheme: Theme.of(context).textTheme.apply(
+                        bodyColor: Colors.white,
+                        displayColor: Colors.white,
+                      ),
+                  expansionTileTheme: const ExpansionTileThemeData(
+                    backgroundColor: CustomColor.primaryDarkShade,
+                  ),
+                  scaffoldBackgroundColor: CustomColor.darkerBg,
+                  appBarTheme: const AppBarTheme(
+                      backgroundColor: CustomColor.darkerBg,
+                      surfaceTintColor: CustomColor.darkerBg,
+                      // titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                      iconTheme: IconThemeData(
+                        color: CustomColor.neutral2,
+                      )),
+                )
+              : ThemeData(
+                  inputDecorationTheme: const InputDecorationTheme(
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
+                  textTheme: Theme.of(context).textTheme.apply(
+                        bodyColor: CustomColor.neutral1,
+                        displayColor: CustomColor.neutral1,
+                      ),
+                  scaffoldBackgroundColor: Colors.white,
+                  appBarTheme: const AppBarTheme(
+                    backgroundColor: Colors.white,
+                    iconTheme: IconThemeData(color: CupertinoColors.systemGrey),
+                  ),
+                ),
+          onQueryUpdate: print,
+          items: allDiseases,
+          searchLabel: 'Search plant disease',
+          suggestion: const Center(
+            child: Text(
+                'Search plant disease by typing title, description, author or tags'),
+          ),
+          failure: const Center(
+            child: Text('No plant disease found :('),
+          ),
+          filter: (disease) {
+            return [
+              disease.name,
+            ];
+          },
+          builder: (disease) => Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 5,
+            ),
+            child: listTileCardDisease(
+              mainContext: context,
+              disease: disease,
+            ),
+          ),
+        ),
+      );
     }
   }
 }

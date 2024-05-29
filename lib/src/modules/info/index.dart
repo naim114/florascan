@@ -1,5 +1,6 @@
 import 'package:florascan/src/models/plant_disease_model.dart';
 import 'package:florascan/src/models/plant_model.dart';
+import 'package:florascan/src/models/user_model.dart';
 import 'package:florascan/src/services/plant_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,9 @@ import '../../widgets/loader/indicator_scaffold.dart';
 import '../../widgets/typography/page_title_icon.dart';
 
 class Info extends StatelessWidget {
-  const Info({super.key, required this.mainContext});
+  const Info({super.key, required this.mainContext, required this.user});
   final BuildContext mainContext;
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,26 @@ class Info extends StatelessWidget {
                   bottom: 5.0,
                 ),
                 child: GestureDetector(
-                  onTap: () async {},
+                  onTap: () async {
+                    showDialog(
+                      context: mainContext,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    );
+
+                    await PlantServices().searchPlantDisease(
+                      context: mainContext,
+                      user: user,
+                    );
+
+                    if (context.mounted) {
+                      Navigator.of(mainContext, rootNavigator: true).pop();
+                    }
+                  },
                   child: TextField(
                     readOnly: false,
                     autofocus: false,

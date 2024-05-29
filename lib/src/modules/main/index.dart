@@ -99,7 +99,10 @@ class _FrontFrameState extends State<FrontFrame> {
             user: user,
             onStart: () => _controller.jumpToTab(2),
           ),
-          Info(mainContext: context),
+          Info(
+            mainContext: context,
+            user: user!,
+          ),
           DiagnoseMenu(
             mainContext: context,
             user: user,
