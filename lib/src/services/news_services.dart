@@ -730,10 +730,10 @@ class NewsService {
                         bodyColor: Colors.white,
                         displayColor: Colors.white,
                       ),
-                  scaffoldBackgroundColor: CustomColor.neutral1,
+                  scaffoldBackgroundColor: CustomColor.darkerBg,
                   appBarTheme: const AppBarTheme(
-                    backgroundColor: CustomColor.neutral1,
-                  ),
+                      backgroundColor: CustomColor.darkerBg,
+                      iconTheme: IconThemeData(color: Colors.white)),
                 )
               : ThemeData(
                   inputDecorationTheme: const InputDecorationTheme(
