@@ -79,7 +79,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         centerTitle: true,
         title: Image.asset(
-          'assets/images/logo.png',
+          'assets/images/logo-nobg.png',
           fit: BoxFit.contain,
           height: MediaQuery.of(context).size.height * 0.06,
         ),
