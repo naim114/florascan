@@ -1,7 +1,7 @@
 # florascan
 <img src="https://github.com/naim114/florascan/blob/master/assets/images/logo-nobg.png" href="https://github.com/naim114/florascannews_app" width="400" >
 
-florascan is a simple application that allows users to read, and post news. The app is built using Flutter and Firebase.
+florascan is an application that utilize Convolutional Neural Networks (CNNs) to detect disease on tomato plant images. This app also have other features like plant disease information, article features and many more.
 
 ### Features
 - Log in/Sign up with Google
