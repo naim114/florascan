@@ -409,7 +409,6 @@ class _NewsEditorState extends State<NewsEditor> {
                   child: QuillEditor.basic(
                     configurations: QuillEditorConfigurations(
                       controller: widget.controller,
-                      readOnly: false,
                     ),
                   ),
                 ),

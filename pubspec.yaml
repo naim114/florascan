@@ -47,7 +47,7 @@ dependencies:
   persistent_bottom_nav_bar: ^5.0.2
   carousel_slider: ^4.2.1
   cached_network_image: ^3.3.1
-  intl: ^0.18.1
+  intl: ^0.19.0
   country: ^4.1.1
   fluttertoast: ^8.2.4
   image_picker: ^1.0.5

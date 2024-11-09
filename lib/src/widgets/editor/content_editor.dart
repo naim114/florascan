@@ -83,7 +83,7 @@ class _ContentEditorState extends State<ContentEditor> {
             child: QuillEditor.basic(
               configurations: QuillEditorConfigurations(
                 controller: widget.controller,
-                readOnly: false,
+                // readOnly: false,
               ),
             ),
           ),

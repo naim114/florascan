@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart' as c;
 import 'package:florascan/src/widgets/slider/slider_images.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +22,7 @@ class CarouselNews extends StatefulWidget {
 
 class _CarouselNewsState extends State<CarouselNews> {
   int current = 0;
-  final CarouselController controller = CarouselController();
+  final c.CarouselController controller = c.CarouselController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +30,14 @@ class _CarouselNewsState extends State<CarouselNews> {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 23.0, bottom: 5),
-          child: CarouselSlider(
+          child: c.CarouselSlider(
             items: sliderImages(
               newsList: widget.newsList,
               mainContext: widget.mainContext,
               user: widget.user,
             ),
             carouselController: controller,
-            options: CarouselOptions(
+            options: c.CarouselOptions(
               autoPlay: true,
               enlargeCenterPage: true,
               aspectRatio: 2,
@@ -57,7 +57,7 @@ class _CarouselNewsState extends State<CarouselNews> {
   Widget slideIndicator({
     required int current,
     required BuildContext context,
-    required CarouselController controller,
+    required c.CarouselController controller,
   }) =>
       Row(
         mainAxisAlignment: MainAxisAlignment.center,

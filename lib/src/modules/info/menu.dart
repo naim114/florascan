@@ -228,7 +228,6 @@ class DiseaseInfoMenu extends StatelessWidget {
             child: QuillEditor(
               configurations: QuillEditorConfigurations(
                 controller: controller,
-                readOnly: true,
                 autoFocus: false,
                 expands: false,
                 padding: const EdgeInsets.all(0),
